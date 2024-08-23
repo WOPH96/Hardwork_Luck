@@ -1,0 +1,7 @@
+#!/bin/bash
+
+msg="NO_msg"
+if [ -n $1 ] ; then
+  msg=$1
+fi
+echo "${msg}"
