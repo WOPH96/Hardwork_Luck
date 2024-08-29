@@ -16,9 +16,9 @@ int main()
 
 
     return 0;
-}" >> ${prob_number}/${prob_number}.cpp
+}" >> ${prob_number}/${prob_number}.c
 
 
 #open
-code ${prob_number}/${prob_number}.cpp
+code ${prob_number}/${prob_number}.c
 #code ${prob_number}/${prob_number}_input.txt
