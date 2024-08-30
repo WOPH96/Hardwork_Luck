@@ -20,7 +20,7 @@ void input_f()
     if (fp == NULL)
     {
         printf(\"파일 열기 실패 \\\n \");
-        return 1;
+        return;
     }
 
     // 변수 입력 공간
@@ -42,8 +42,8 @@ void input()
 
 int main()
 {
-
-    input();
+    input_f();
+    // input();
 
     return 0;
 }
