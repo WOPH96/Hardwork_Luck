@@ -9,29 +9,44 @@ prob_number=$1
 mkdir -p ${prob_number}
 touch ${prob_number}/${prob_number}.c
 touch ${prob_number}/${prob_number}_input.txt
-echo '#include <stdio.h>
-#define MAX_LEN 1000
-#define NUMBER_OF_LINE 5
-int main()
-{
-    FILE *fs;
-    char str[NUMBER_OF_LINE][MAX_LEN];
-    int num = 0;
+echo "#include <stdio.h>
 
-    fs = fopen("3-1_input.txt", "r");
-    if (fs == NULL) {
-        printf("파일을 열 수 없습니다.\\n");
+// 필요 변수 선언
+
+void input_f()
+{
+    FILE *fp = fopen(\"${prob_number}_input.txt\", \"r\");
+    if (fp == NULL)
+    {
+        printf(\"파일 열기 실패 \\\n \");
         return 1;
     }
 
-    while (fgets(str[num], MAX_LEN, fs) != NULL) {
-        printf("%s", str[num]);
-        num++;
-    }
+    // 변수 입력 공간
 
-    fclose(fs);
+    // fscanf(fp, \"%d %d\", &num1, &num2);
+
+    // 변수 입력 공간
+    fclose(fp);
+}
+
+void input()
+{
+    // 변수 입력 공간
+
+    // scanf( \"%d %d\", &num1, &num2);
+
+    // 변수 입력 공간
+}
+
+int main()
+{
+
+    input();
+
     return 0;
-}' >> ${prob_number}/${prob_number}.c
+}
+" >> ${prob_number}/${prob_number}.c
 
 
 #open
