@@ -26,6 +26,10 @@ echo "#include <iostream>
 #include <vector>
 
 using namespace std;
+
+//입력변수생성
+
+//입력변수생성
 int main()
 {
     std::ios_base::sync_with_stdio(false);
