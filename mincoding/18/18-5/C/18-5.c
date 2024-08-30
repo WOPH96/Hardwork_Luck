@@ -31,8 +31,26 @@ void input()
 
 int main()
 {
-    input_f();
-    // input();
-    printf("%s", str);
+    // input_f();
+    input();
+    // printf("%s", str);
+    int check[26] = {0};
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        int idx = str[i] - 65;
+        check[idx] += 1;
+    }
+    int max = -1;
+    int max_idx = 0;
+    for (int i = 0; i < 26; i++)
+    {
+        if (check[i] > max)
+        {
+            max = check[i];
+            max_idx = i;
+        }
+    }
+    printf("%c", max_idx + 65);
     return 0;
 }
