@@ -1,1 +1,0 @@
-/home/woph/Hardwork_Luck/mincoding/.cpp_wsl_make_source.sh
