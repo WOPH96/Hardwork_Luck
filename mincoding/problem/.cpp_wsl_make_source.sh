@@ -22,7 +22,8 @@ source_path="${prob_number}/${directory_of_source}"
 mkdir -p ${source_path}
 touch ${source_path}/${prob_number}.cpp
 touch ${source_path}/${prob_number}_input.txt
-echo "#include <iostream>
+echo "// #include <bits/stdc++.h>
+#include <iostream>
 #include <vector>
 
 using namespace std;
