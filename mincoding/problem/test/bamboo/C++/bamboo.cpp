@@ -10,16 +10,16 @@ int SOB[1000][1000] = {0};
 int works[5000] = {0};
 // 입력변수생성
 
-void grow_up()
-{
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            SOB[i][j]++;
-        }
-    }
-}
+// void grow_up()
+// {
+//     for (int i = 0; i < n; i++)
+//     {
+//         for (int j = 0; j < m; j++)
+//         {
+//             SOB[i][j]++;
+//         }
+//     }
+// }
 
 int do_work(int day, priority_queue<int> &pq)
 {
@@ -38,7 +38,6 @@ int do_work(int day, priority_queue<int> &pq)
         pq.push(-1 * day + 1);
     }
 
-    // grow_up();
     return day_income;
 }
 int main()
