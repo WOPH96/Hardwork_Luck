@@ -22,6 +22,7 @@ source_path="${prob_number}/${directory_of_source}"
 mkdir -p ${source_path}
 touch ${source_path}/${prob_number}.cpp
 touch ${source_path}/${prob_number}_input.txt
+touch ${source_path}/${prob_number}_idea.txt
 echo "// #include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
@@ -44,4 +45,5 @@ int main()
 
 #open
 code ${source_path}/${prob_number}.cpp
+code ${source_path}/${prob_number}_idea.txt
 code ${source_path}/${prob_number}_input.txt
