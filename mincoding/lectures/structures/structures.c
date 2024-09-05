@@ -23,6 +23,13 @@ void swap(sw *test)
     test->a = test->b;
     test->b = temp;
 }
+sw make_struct(int a, int b)
+{
+    sw point;
+    point.a = a;
+    point.b = b;
+    return point;
+}
 int main()
 {
 
@@ -34,6 +41,7 @@ int main()
     bbq_sw(test);
     swap(&test);
     bbq_sw(test);
+    sw point = make_struct(test.a, test.b);
 
     return 0;
 }
