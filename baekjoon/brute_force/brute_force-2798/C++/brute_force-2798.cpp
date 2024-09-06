@@ -10,9 +10,9 @@ vector<int> cards;
 // 입력변수생성
 int main()
 {
-    std::ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    freopen("brute_force-2798_input.txt", "r", stdin);
+    // std::ios_base::sync_with_stdio(false);
+    // cin.tie(NULL);
+    // freopen("brute_force-2798_input.txt", "r", stdin);
 
     cin >> n >> m;
 
@@ -33,12 +33,12 @@ int main()
     {
         for (int j = i + 1; j < n - 1; j++)
         {
-            for (int k = i + 2; k < n; k++)
+            for (int k = j + 1; k < n; k++)
             {
                 sum = cards[i] + cards[j] + cards[k];
                 // printf("%d+%d+%d=%d\n", cards[i], cards[j], cards[k], sum);
                 diff = abs(m - sum);
-                if (diff < mn)
+                if (diff < mn && sum <= m)
                 {
                     // printf("(%d,%d,%d)", diff, sum, mn);
                     mn = diff;
