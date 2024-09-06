@@ -16,7 +16,8 @@ int main()
 
     void_fp vfp;
 
-    vfp = bts;
+    vfp = &bts;
+    vfp = bts; // 둘다 동일함
 
     vfp();
 
