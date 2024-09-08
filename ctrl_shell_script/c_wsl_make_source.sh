@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+
 if [ -z $1 ] ; then
     echo "insert the paramter as a name of problem"
     exit 0
