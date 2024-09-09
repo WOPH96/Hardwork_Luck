@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 if [ -z "$1" ]; then
-    echo "문제 이름을 파라미터로 입력해주세요."
+    echo "상위 디렉토리 이름을 입력해주세요"
     exit 1
 fi
 
