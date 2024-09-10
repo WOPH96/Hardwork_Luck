@@ -1,13 +1,14 @@
 #include <stdio.h>
-#include <windows.h>
+#include <ncurses.h>
 
-void set_color(unsigned short text, unsigned short back)
+void set_color(int text, int back)
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text | (back << 4));
+    attron(COLOR_PAIR(text + 1 + (back * 16)));
 }
+
 void test()
 {
-    unsigned short back = 0;
+    int back = 0;
     for (int i = 0; i < 16; i++)
     {
         set_color(i, back);
@@ -20,29 +21,44 @@ void test()
 #define GREEN 10
 #define GRAY 8
 #define WHITE 15
+#define BLACK 0
 
 void show_traffic_light()
 {
-    printf("\r\n");
-    printf("┏━━━━━━━━━┓\r\n");
-    printf("┃ ");
+    printw("\r\n");
+    printw("┏━━━━━━━━━┓\r\n");
+    printw("┃ ");
     set_color(RED, 0);
-    printf("● ");
+    printw("● ");
     set_color(YELLOW, 0);
-    printf("● ");
+    printw("● ");
     set_color(GREEN, 0);
-    printf("●");
+    printw("●");
     set_color(WHITE, 0);
-    printf("┃");
-    printf("\r\n");
-    printf("┗━━━━━━━━━┛\r\n");
-    printf("\r\n");
+    printw("┃");
+    printw("\r\n");
+    printw("┗━━━━━━━━━┛\r\n");
+    printw("\r\n");
     set_color(WHITE, 0);
 }
 
 int main(void)
 {
+    initscr();     // Initialize ncurses
+    start_color(); // Initialize color pairs
+
+    // Create color pairs
+    init_pair(1, RED, BLACK);
+    init_pair(2, YELLOW, BLACK);
+    init_pair(3, GREEN, BLACK);
+    init_pair(4, GRAY, BLACK);
+    init_pair(5, WHITE, BLACK);
+
     // test();
     show_traffic_light();
+
+    getch();  // Wait for a key press
+    endwin(); // End ncurses mode
+
     return 0;
 }
