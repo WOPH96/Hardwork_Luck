@@ -57,7 +57,7 @@ int main()
 }
 
 void input() {}
-void print() {}" >> ${source_path}/${prob_number}.cpp
+void print() {} " >> ${source_path}/${prob_number}.cpp
 # 실수방지를 위한 이어쓰기
 
 #open
