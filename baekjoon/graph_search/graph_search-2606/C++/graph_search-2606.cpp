@@ -15,8 +15,29 @@ vector<int> graph[101]; // 벡터를 요소로 갖는 101개의 배열, 그래�
 void input();
 void print();
 
-// void sol(){
-// }
+bool visited[101] = {0};
+
+int visit_cnt = 0;
+void dfs(int node)
+{
+    // 방문 안한 친구만 ㄱ
+    if (!visited[node])
+    {
+        // cout << node << " ";
+        visited[node] = 1;
+        visit_cnt++;
+        for (int i = 0; i < graph[node].size(); i++)
+        {
+            dfs(graph[node][i]);
+        }
+    }
+}
+void sol()
+{
+    dfs(1);
+    // 1 제외
+    cout << visit_cnt - 1;
+}
 
 int main()
 {
@@ -24,12 +45,12 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("graph_search-2606_input.txt", "r", stdin);
+    // freopen("graph_search-2606_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
-    print();
-    // sol();
+    // print();
+    sol();
 
     return 0;
 }
