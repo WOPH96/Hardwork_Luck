@@ -77,14 +77,14 @@ int main()
 {
     std::ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    freopen("brute_force-14501_input.txt", "r", stdin);
+    // freopen("brute_force-14501_input.txt", "r", stdin);
     cin >> n;
     counsel_info *person = new counsel_info[n + 1];
     input_person(person);
     // print_person(person);
 
     cout << sol(person);
-    print_DP();
+    // print_DP();
 
     // print_DP();
 
