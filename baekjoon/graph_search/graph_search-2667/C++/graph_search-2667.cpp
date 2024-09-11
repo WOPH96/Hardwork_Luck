@@ -1,6 +1,7 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -18,12 +19,12 @@ bool visited[26][26]{0};
 class Pos
 {
 public:
-    int x;
     int y;
+    int x;
 };
-
-int dx[4]{1, -1, 0, 0};
-int dy[4]{0, 0, 1, -1};
+//       우   좌  하  상
+int dx[4] = {1, -1, 0, 0};
+int dy[4] = {0, 0, 1, -1};
 
 void print_visited()
 {
@@ -38,46 +39,51 @@ void print_visited()
     cout << endl;
 }
 
+void visiting(const Pos &p)
+{
+    visited[p.y][p.x] = true;
+}
+
 bool dfs(Pos start)
 {
     // 종료 조건
     // 방문했거나 아파트가 없으면
     if (visited[start.y][start.x] || graph[start.y][start.x] == 0)
-        return false;
-    else
+        return 0;
+
+    Pos next;
+    visited[start.y][start.x] = true;
+    print_visited();
+    for (int i = 0; i < 4; i++)
     {
-        Pos next;
-        visited[start.y][start.x] = true;
-        print_visited();
-        for (int i = 0; i < 4; i++)
+        next = {start.y + dy[i], start.x + dx[i]};
+        // next.y = start.y + dy[i];
+        // next.x = start.x + dx[i];
+
+        // 그래프 내부에 있고,
+        // 아파트가 있으며
+        // 방문하지 않은 곳이면
+        if (0 <= next.y && next.y < n &&
+            0 <= next.x && next.x < n &&
+            graph[next.y][next.x] &&
+            !visited[next.y][next.x])
         {
-            next = {start.y + dy[i], start.x + dx[i]};
-            // next.y = start.y + dy[i];
-            // next.x = start.x + dx[i];
 
-            // 그래프 내부에 있고,
-            // 아파트가 있으며
-            // 방문하지 않은 곳이면
-            if (0 <= next.y && next.y < n &&
-                0 <= next.x && next.x < n &&
-                graph[next.y][next.x] &&
-                !visited[next.y][next.x])
-            {
-
-                // 다음 곳으로 가자
-                dfs(next);
-                // 한번이라도 찾았으면 최종적으로 true 반환
-                return true;
-            }
+            // 다음 곳으로 가자
+            dfs(next);
+            // 한번이라도 찾았으면 최종적으로 true 반환
+            return true;
         }
-        // 한번도 못찾았으면 최종적으로 false 반환
-        return false;
     }
+    // 한번도 못찾았으면 최종적으로 false 반환
+    return false;
 }
 
 void sol()
 {
     int town = 0;
+    int house;
+    priority_queue<int, vector<int>, greater<int>> houses;
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
