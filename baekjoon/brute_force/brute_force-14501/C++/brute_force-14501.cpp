@@ -25,27 +25,6 @@ int n;
 int dp[16] = {0};
 // 입력변수생성
 
-void input_person(counsel_info *ci);
-void print_person(counsel_info *ci);
-void print_DP();
-void sol(counsel_info *ci);
-
-int main()
-{
-    std::ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    freopen("brute_force-14501_input.txt", "r", stdin);
-    cin >> n;
-    counsel_info *person = new counsel_info[n + 1];
-    input_person(person);
-    print_person(person);
-    // print_DP();
-    sol(person);
-    // print_DP();
-
-    delete[] person;
-    return 0;
-}
 void input_person(counsel_info *ci)
 {
     if (ci == nullptr)
@@ -57,7 +36,7 @@ void input_person(counsel_info *ci)
         cin >> (ci + i)->t;
         cin >> (ci + i)->p;
     }
-    ci[n].t = 1;
+    // ci[n].t = 0;
 }
 
 void print_person(counsel_info *ci)
@@ -78,28 +57,37 @@ void print_DP()
     }
 }
 
-void recur(int idx, counsel_info *ci)
+int sol(counsel_info *ci)
 {
-    int next_idx = idx + ci[idx].t;
-    // if (next_idx > n)
-    //     return;
-
-    // if (ci[idx].p + dp[idx] > dp[next_idx])
-    //     dp[next_idx] = ci[idx].p + dp[idx];
-    // recur(next_idx, ci);
-
-    if (next_idx <= n)
+    int max_pay = -1;
+    for (int i = 0; i <= n; i++)
     {
-        dp[next_idx] = max(dp[next_idx], ci[idx].p + dp[idx]);
-        cout << "DP[" << idx << "] :" << dp[idx] << endl;
-        cout << "DP[" << next_idx << "] :" << dp[next_idx] << endl;
-        recur(next_idx, ci);
+        dp[i] = max(max_pay, dp[i]); // 현재 일수까지 최대 금액
+        int next_idx = i + ci[i].t;
+        if (next_idx <= n)
+        {
+            dp[next_idx] = max(dp[next_idx], dp[i] + ci[i].p);
+        }
+        max_pay = max(max_pay, dp[i]);
     }
+    return max_pay;
 }
-void sol(counsel_info *ci)
+
+int main()
 {
-    for (int i = 0; i < n; i++)
-    {
-        recur(i, ci);
-    }
+    std::ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    freopen("brute_force-14501_input.txt", "r", stdin);
+    cin >> n;
+    counsel_info *person = new counsel_info[n + 1];
+    input_person(person);
+    // print_person(person);
+
+    cout << sol(person);
+    print_DP();
+
+    // print_DP();
+
+    delete[] person;
+    return 0;
 }
