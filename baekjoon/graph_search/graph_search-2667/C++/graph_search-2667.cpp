@@ -82,8 +82,8 @@ void sol()
     {
         for (int j = 0; j < n; j++)
         {
-            Pos start{j, i};
-            cout << "(" << j << "," << i << ")" << endl;
+            Pos start{i, j};
+            cout << "(" << i << "," << j << ")" << endl;
             if (dfs(start))
             {
                 town++;
