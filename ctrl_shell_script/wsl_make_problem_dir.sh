@@ -1,10 +1,10 @@
 
-if [ -z $1 ] ; then
+if [ -z "$1" ] ; then
     echo "큰 문제 번호를 입력해주세요. (ex, 18-1은 18)"
     exit 0
 fi
 
-prob_dir=$1
+prob_dir="$1"
 mkdir -p ${prob_dir}
 
 top_dir=$(git rev-parse --show-toplevel)
