@@ -12,6 +12,7 @@
     "cstdint": "cpp",
     "cstdio": "cpp",
     "cstdlib": "cpp",
+    "cstring": "cpp",
     "cwchar": "cpp",
     "cwctype": "cpp",
     "deque": "cpp",
