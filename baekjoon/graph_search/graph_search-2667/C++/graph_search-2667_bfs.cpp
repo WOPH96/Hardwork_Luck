@@ -19,12 +19,12 @@ bool visited[26][26]{0};
 class Pos
 {
 public:
-    int x;
     int y;
+    int x;
 };
-
-int dx[4]{1, -1, 0, 0};
-int dy[4]{0, 0, 1, -1};
+//       우   좌  하  상
+int dx[4] = {1, -1, 0, 0};
+int dy[4] = {0, 0, 1, -1};
 
 void print_visited()
 {
@@ -39,53 +39,74 @@ void print_visited()
     cout << endl;
 }
 
-bool bfs(Pos start)
+void visiting(const Pos &p)
 {
+    visited[p.y][p.x] = true;
+}
+
+int bfs(Pos start)
+{
+    // 초기부터 해당없는 놈 거르기
+    if (graph[start.y][start.x] == 0 || visited[start.y][start.x])
+        return 0;
+
     queue<Pos> q;
     q.push(start);
-    visited[start.y][start.x] = true;
-    int cnt = 0;
-    while(!q.empty()){
-        cnt++;
+    // 큐에 넣는다 = 방문처리
+    visiting(start);
+    int house = 0;
+    while (!q.empty())
+    {
         Pos now = q.front();
         q.pop();
-        for (int i = 0; i < 4; i++){
+        house++;
+        for (int i = 0; i < 4; i++)
+        {
             Pos next = {now.y + dy[i], now.x + dx[i]};
-            if (0 <= next.y && next.y < n &&
+            // cout << "next -> (" << next.y << "," << next.x << ")" << endl;
+            if (
+                0 <= next.y && next.y < n &&
                 0 <= next.x && next.x < n &&
                 graph[next.y][next.x] &&
                 !visited[next.y][next.x])
             {
+
                 q.push(next);
-                visited[next.y][next.x] = true;
-                
-                
+                visiting(next);
             }
         }
     }
-    if(cnt ==1)
-        return false;
-    else
-        return true;
+    // print_visited();
+    // 단지 수 반환
+    return house;
 }
 
 void sol()
 {
     int town = 0;
+    int house;
+    priority_queue<int, vector<int>, greater<int>> houses;
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
             Pos start{i, j};
-            cout << "(" << i << "," << j << ")" << endl;
-            if (bfs(start))
+            // cout << "(" << i << "," << j << ")" << endl;
+            house = bfs(start);
+            if (house)
             {
                 town++;
-                cout << "단지탐색완료" << endl;
+                houses.push(house);
+                // cout << "단지탐색완료" << endl;
             }
         }
     }
-    cout << town;
+    cout << town << endl;
+    while (!houses.empty())
+    {
+        cout << houses.top() << endl;
+        houses.pop();
+    }
 }
 
 int main()
@@ -94,11 +115,11 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("graph_search-2667_input.txt", "r", stdin);
+    // freopen("graph_search-2667_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
 
     return 0;
