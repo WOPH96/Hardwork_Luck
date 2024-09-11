@@ -46,7 +46,7 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("test_input.txt", "r", stdin);
+    freopen(\"${prob_number}_input.txt\", \"r\", stdin);
     // 제출 시 주석처리
 
     input();
