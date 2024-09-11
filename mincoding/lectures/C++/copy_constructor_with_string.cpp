@@ -26,7 +26,7 @@ int main()
     Person p1{"원필", 29};
     Person p2{p1};
 
-    p2.name{"투필"};
+    p2.name = {"투필"};
     std::cout << p1.name << p2.name << std::endl;
     return 0;
 }
