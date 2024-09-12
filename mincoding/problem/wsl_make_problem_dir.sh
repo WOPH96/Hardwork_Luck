@@ -1,1 +1,0 @@
-/home/woph/Hardwork_Luck/ctrl_shell_script/wsl_make_problem_dir.sh

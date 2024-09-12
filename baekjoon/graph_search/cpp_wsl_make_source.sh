@@ -1,1 +1,0 @@
-/home/woph/Hardwork_Luck/ctrl_shell_script/cpp_wsl_make_source.sh
