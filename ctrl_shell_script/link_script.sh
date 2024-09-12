@@ -22,8 +22,8 @@ target_dirs=(baekjoon programmers mincoding/problem)
 for dir in ${target_dirs[@]}; do
     target_dir="${top_dir}/${dir}"
     
-    ln -sf "${script_dir}/wsl_make_problem_dir.sh" "${target_dir}/wsl_make_problem_dir.sh" || {
-        echo "링크 생성 실패: wsl_make_problem_dir.sh"
+    ln -sf "${script_dir}/make_problem_dir.sh" "${target_dir}/make_problem_dir.sh" || {
+        echo "링크 생성 실패: make_problem_dir.sh"
         exit 1
     }
     ln -sf "${script_dir}/re_link.sh" "${target_dir}/re_link.sh" || {

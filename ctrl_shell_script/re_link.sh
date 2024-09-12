@@ -5,7 +5,7 @@
 # 현재 디렉토리의 모든 하위 디렉토리 이름을 배열에 저장
 # subdirs=$(find . -maxdepth 1 -type d -not -path '.' -not -path './.vscode')
 while IFS= read -r subdir; do
-    ./wsl_make_problem_dir.sh ${subdir}
+    ./make_problem_dir.sh ${subdir}
     echo "$(pwd)/${subdir} 완료"
     # 각 디렉토리에 대한 처리
 done < <(find . -maxdepth 1 -type d -not -path '.' -not -path './.vscode')
