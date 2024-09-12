@@ -40,7 +40,6 @@ std::ostream &operator<<(std::ostream &out, const Point &p1)
 }
 int main()
 {
-
     Point p1{1, 2};
     Point p2{3, 4};
 
