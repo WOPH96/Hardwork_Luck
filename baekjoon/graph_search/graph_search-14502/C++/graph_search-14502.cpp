@@ -21,10 +21,38 @@ vector<Pos_t> empty_space;
 
 // 입력, 테스트 출력
 void input();
-void print();
-
-void bfs(Pos_t start, int (*now_MAP)[9], int (*visited)[9])
+void print(int (*now_MAP)[9]);
+bool is_inmap(const Pos_t &p)
 {
+    return (0 <= p.y && p.y <= n &&
+            0 <= p.x && p.x <= m);
+}
+void bfs(Pos_t start, int (*now_MAP)[9], bool (*visited)[9])
+{
+    queue<Pos_t> q;
+    q.push(start);
+    visited[start.y][start.x] = true;
+    int dx[4]{1, -1, 0, 0};
+    int dy[4]{0, 0, 1, -1};
+    while (!q.empty())
+    {
+        Pos_t now = q.front();
+        q.pop();
+        for (int i = 0; i < 4; i++)
+        {
+            Pos_t next = {now.y + dy[i], now.x + dx[i]};
+            if ( // 맵 안에 있어야 하고, 빈공간이어야 하고, 방문한적없어야
+                is_inmap(next) &&
+                !now_MAP[next.y][next.x] &&
+                !visited[next.y][next.x])
+            {
+                q.push(next);
+                visited[next.y][next.x] = true;
+                now_MAP[next.y][next.x] = 2;
+            }
+        }
+    }
+    print(now_MAP);
 }
 
 void sol()
@@ -33,7 +61,7 @@ void sol()
 
     // 초기 맵 상태 복사하기
     int init_MAP[9][9];
-    int visited[9][9] = {0};
+    bool visited[9][9] = {0};
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
@@ -62,8 +90,8 @@ int main()
     // 제출 시 주석처리
 
     input();
-    print();
-    // sol();
+    // print(MAP);
+    sol();
 
     return 0;
 }
@@ -83,13 +111,13 @@ void input()
         }
     }
 }
-void print()
+void print(int (*now_MAP)[9])
 {
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            cout << MAP[i][j] << " ";
+            cout << now_MAP[i][j] << " ";
         }
         cout << endl;
     }
