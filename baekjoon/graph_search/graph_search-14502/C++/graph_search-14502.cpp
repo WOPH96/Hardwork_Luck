@@ -1,6 +1,7 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -16,13 +17,40 @@ typedef struct
 } Pos_t;
 
 vector<Pos_t> virus;
+vector<Pos_t> empty_space;
 
 // 입력, 테스트 출력
 void input();
 void print();
 
-// void sol(){
-// }
+void bfs(Pos_t start, int (*now_MAP)[9], int (*visited)[9])
+{
+}
+
+void sol()
+{
+    int max_zero_space = -1;
+
+    // 초기 맵 상태 복사하기
+    int init_MAP[9][9];
+    int visited[9][9] = {0};
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            init_MAP[i][j] = MAP[i][j];
+        }
+    }
+    // 벽 세우기
+
+    // 바이러스 퍼뜨리기
+    for (auto &virus_pos : virus)
+    {
+        bfs(virus_pos, init_MAP, visited);
+    }
+
+    // 현재 맵에서 0 카운트해서, 최댓값 구하기
+}
 
 int main()
 {
@@ -50,6 +78,8 @@ void input()
             cin >> MAP[i][j];
             if (MAP[i][j] == 2)
                 virus.push_back({i, j});
+            else if (MAP[i][j] == 0)
+                empty_space.push_back({i, j});
         }
     }
 }
@@ -65,10 +95,17 @@ void print()
     }
     cout << endl;
 
-    cout << "virus position" << endl;
-    for (auto &elem : virus)
-    {
-        cout << "(" << elem.y << "," << elem.x << ")" << "  ";
-    }
-    cout << endl;
+    // cout << "virus position" << endl;
+    // for (auto &elem : virus)
+    // {
+    //     cout << "(" << elem.y << "," << elem.x << ")" << "  ";
+    // }
+    // cout << endl;
+
+    // cout << "zero empty position" << endl;
+    // for (auto &elem : empty_space)
+    // {
+    //     cout << "(" << elem.y << "," << elem.x << ")" << "  ";
+    // }
+    // cout << endl;
 }
