@@ -11,7 +11,7 @@ typedef struct {
 // 입력변수생성
 int v, e;
 int start;
-vector<
+vector<dst_t> graph[20001];
 // 입력변수생성
 
 // 입력, 테스트 출력
@@ -37,5 +37,24 @@ int main()
     return 0;
 }
 
-void input() {}
-void print() {} 
+void input() {
+    cin >> v >> e;
+    cin >> start;
+    for (int i=0; i<e;i++){
+        int src, dst, w;
+        cin >> src >> dst >> w;
+        graph[src].push_back({dst,w});
+        
+        
+    }
+}
+void print() {
+    for (int i=0; i<v;i++){
+        cout << i << "  ";
+        for(auto &elem : graph[i]){
+            cout << "(" << elem.dst << "," << elem.w << ")" << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+} 
