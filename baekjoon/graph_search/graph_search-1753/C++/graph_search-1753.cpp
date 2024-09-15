@@ -49,7 +49,7 @@ void input() {
     }
 }
 void print() {
-    for (int i=0; i<v;i++){
+    for (int i=0; i<=v;i++){
         cout << i << "  ";
         for(auto &elem : graph[i]){
             cout << "(" << elem.dst << "," << elem.w << ")" << " ";
