@@ -1,2 +1,6 @@
+run = "g++ test.cpp -o main && ./main"
 [nix]
 channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "g++ test.cpp -o main
