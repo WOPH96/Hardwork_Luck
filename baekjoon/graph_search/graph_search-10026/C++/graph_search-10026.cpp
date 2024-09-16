@@ -41,7 +41,20 @@ bool bfs(Pos_t start, bool can_seperate, bool (*visited)[101])
     queue<Pos_t> q;
     q.push(start);
     visited[start.y][start.x] = true;
-    char now_color = graph[start.y][start.x];
+    char same_color = graph[start.y][start.x];
+    char similar_color = 0;
+
+    switch (same_color)
+    {
+    case 'R':
+        similar_color = 'G';
+        break;
+    case 'G':
+        similar_color = 'R';
+        break;
+    default:
+        break;
+    }
 
     while (!q.empty())
     {
@@ -50,9 +63,12 @@ bool bfs(Pos_t start, bool can_seperate, bool (*visited)[101])
         for (int i = 0; i < 4; i++)
         {
             Pos_t next = {now.y + dy[i], now.x + dx[i]};
-            if (is_in_grid(next) &&
-                graph[next.y][next.x]) // 여기서부터!
+            if (is_in_grid(next) && !visited[next.y][next.x] &&
+                (graph[next.y][next.x] == same_color ||
+                 (can_seperate == CANNOT_SEPERATE && graph[next.y][next.x] == similar_color))) // 여기서부터!
             {
+                q.push(next);
+                visited[next.y][next.x] = true;
             }
         }
     }
@@ -64,23 +80,23 @@ void sol()
 {
     int cnt_normal = 0;
     int cnt_divided = 0;
-    bool visited[101][101] = {0};
+    bool visited1[101][101] = {0};
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            if (bfs({i, j}, CAN_SEPERATE, visited))
+            if (bfs({i, j}, CAN_SEPERATE, visited1))
             {
                 cnt_normal++;
             }
         }
     }
-    bool visited[101][101] = {0};
+    bool visited2[101][101] = {0};
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            if (bfs({i, j}, CANNOT_SEPERATE, visited))
+            if (bfs({i, j}, CANNOT_SEPERATE, visited2))
             {
                 cnt_divided++;
             }
@@ -95,11 +111,11 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("graph_search-10026_input.txt", "r", stdin);
+    // freopen("graph_search-10026_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
 
     return 0;
