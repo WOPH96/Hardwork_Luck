@@ -1,1 +1,1 @@
-/home/runner/HardworkLuck/ctrl_shell_script/re_link.sh
+/Users/yang-wonphil/Hyundai_Autoever/Hardwork_Luck/ctrl_shell_script/re_link.sh

@@ -1,1 +1,1 @@
-/home/runner/HardworkLuck/ctrl_shell_script/make_problem_dir.sh
+/Users/yang-wonphil/Hyundai_Autoever/Hardwork_Luck/ctrl_shell_script/make_problem_dir.sh
