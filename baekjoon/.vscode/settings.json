@@ -3,6 +3,7 @@
     "queue": "cpp",
     "iostream": "cpp",
     "__locale": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "stack": "cpp"
   }
 }
