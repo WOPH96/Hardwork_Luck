@@ -31,7 +31,7 @@ using namespace std;
 
 // 입력변수생성
 
-// 입력변수생성
+// 다른 변수 생성
 
 // 입력, 테스트 출력
 void input();
