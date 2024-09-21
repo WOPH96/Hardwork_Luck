@@ -12,8 +12,33 @@ int t;
 void input();
 void print();
 
+struct ZO
+{
+    int zero;
+    int one;
+    ZO(int z, int o) : zero(z), one(o) {}
+    ZO operator+(const ZO &elem)
+    {
+        return ZO(zero + elem.zero, one + elem.one);
+    }
+
+    friend std::ostream &operator<<(std::ostream &out, const ZO &elem)
+    {
+        out << elem.zero << " " << elem.one;
+        return out;
+    }
+};
+
 void sol(int n)
 {
+    vector<ZO> dp(n + 1, ZO(0, 0));
+    dp[0] = {ZO(1, 0)};
+    dp[1] = {ZO(0, 1)};
+    for (int i = 2; i <= n; i++)
+    {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    cout << dp[n] << endl;
 }
 
 int main()
@@ -22,7 +47,7 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("dynamic_programming-1003_input.txt", "r", stdin);
+    // freopen("dynamic_programming-1003_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
@@ -40,6 +65,7 @@ void input()
         int n;
         cin >> n;
         sol(n);
+        // cout << "Hello";
         t--;
     }
 }
