@@ -16,17 +16,14 @@ void print();
 int dp[100] = {0};
 int sol(int x)
 {
-    if (x == 0 || x == 1)
+    dp[0] = 0;
+    dp[1] = 1;
+
+    for (int i = 2; i <= x; i++)
     {
-        dp[x] = x;
-        return x;
+        dp[i] = dp[i - 1] + dp[i - 2];
     }
-
-    if (dp[x] != 0)
-        return dp[x];
-
-    dp[x] = sol(x - 1) + sol(x - 2);
-    return dp[x];
+    return dp[99];
 }
 int main()
 {
