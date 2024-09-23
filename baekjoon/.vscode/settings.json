@@ -4,6 +4,8 @@
     "iostream": "cpp",
     "__locale": "cpp",
     "ostream": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "vector": "cpp",
+    "ios": "cpp"
   }
 }
