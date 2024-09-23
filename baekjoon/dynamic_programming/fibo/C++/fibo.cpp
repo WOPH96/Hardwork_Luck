@@ -31,6 +31,7 @@ int sol(int x)
 int main()
 {
     answer = sol(99);
+    cout << answer << endl;
     return 0;
 }
 
