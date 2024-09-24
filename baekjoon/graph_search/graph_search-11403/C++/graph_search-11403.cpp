@@ -8,8 +8,7 @@ using namespace std;
 int n;
 
 vector<int> graph[101];
-int result[101][101] = {0};
-bool visited[101] = {false};
+
 // 다른 변수 생성
 enum MAP
 {
@@ -20,16 +19,15 @@ enum MAP
 void input();
 void print();
 
-void dfs(int now)
+void dfs(int now, bool *visited)
 {
     for (int &next : graph[now])
     {
         if (!visited[next])
         {
-            result[now][next] = 1;
             visited[next] = true;
-            dfs(next);
-            visited[next] = false;
+            dfs(next, visited);
+            // visited[next] = false;
         }
     }
 }
@@ -38,9 +36,13 @@ void sol()
 {
     for (int i = 0; i < n; i++)
     {
-        // visited[i] = true;
-        dfs(i);
-        // visited[i] = false;
+        bool visited[101] = {false};
+        dfs(i, visited);
+        for (int j = 0; j < n; j++)
+        {
+            cout << visited[j] << " ";
+        }
+        cout << endl;
     }
 }
 
@@ -50,13 +52,13 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("graph_search-11403_input.txt", "r", stdin);
+    // freopen("graph_search-11403_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
-
+    // print();
     sol();
-    print();
+    // print();
 
     return 0;
 }
@@ -81,22 +83,14 @@ void input()
 }
 void print()
 {
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cout << i << "  ";
-    //     for (int &elem : graph[i])
-    //     {
-    //         cout << elem << " ";
-    //     }
-    //     cout << endl;
-    // }
-    // cout << endl;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
+        cout << i << "  ";
+        for (int &elem : graph[i])
         {
-            cout << result[i][j] << " ";
+            cout << elem << " ";
         }
         cout << endl;
     }
+    cout << endl;
 }
