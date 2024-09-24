@@ -7,14 +7,16 @@ using namespace std;
 // 입력변수생성
 int n;
 int stairs[301] = {0};
+int dp[301][3] = {0};
 // 다른 변수 생성
 
 // 입력, 테스트 출력
 void input();
 void print();
 
-// void sol(){
-// }
+void sol()
+{
+}
 
 int main()
 {
