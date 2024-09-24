@@ -7,5 +7,5 @@ dp[0] = stair[0]
 2번을 밟으면
 
 
-s[0]+s[1]
+dp[n] = max(stair[n-1]+stair[n-3] or stair[n-2]+stair[n-3]) +stair[n]
 
