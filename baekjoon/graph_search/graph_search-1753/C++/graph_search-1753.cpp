@@ -1,25 +1,51 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
+#include <iomanip> // 입출력 조정자
+#include <queue>
+#define INF (9999999)
 
 using namespace std;
 
-typedef struct {
-    int dst;
-    int w;
-}dst_t;
+// struct Dst
+// {
+//     int dst;
+//     int w;
+//     Dst(int d, int w) : dst(d), w(w) {}
+// };
 // 입력변수생성
 int v, e;
 int start;
-vector<dst_t> graph[20001];
+int graph[20001][20001] = {0};
+bool visited[20001] = {false};
+// const int INF = 9999999;
 // 입력변수생성
 
 // 입력, 테스트 출력
 void input();
 void print();
 
-// void sol(){
-// }
+void sol_bfs()
+{
+    queue<int> q;
+    q.push(start);
+    visited[start] = true;
+    while (!q.empty())
+    {
+        int now = q.front();
+        q.pop();
+        for (int i = 1; i <= v; i++)
+        { // i ==> dst
+            if (graph[now][i] == INF)
+                continue;
+            if (!visited[i])
+            {
+                q.push(i); // src,dst,weight
+                visited[i] = true;
+            }
+        }
+    }
+}
 
 int main()
 {
@@ -32,29 +58,40 @@ int main()
 
     input();
     print();
-    // sol();
+    sol_bfs();
 
     return 0;
 }
 
-void input() {
+void input()
+{
     cin >> v >> e;
     cin >> start;
-    for (int i=0; i<e;i++){
-        int src, dst, w;
-        cin >> src >> dst >> w;
-        graph[src].push_back({dst,w});
-        
-        
+    // fill_n(&graph[1][1], (v * v), INF);
+    for (int i = 1; i <= v; i++)
+    {
+        fill_n(graph[i], v + 1, INF);
+    }
+
+    for (int i = 0; i < e; i++)
+    {
+        int src, dst, weight;
+        cin >> src >> dst >> weight;
+        graph[src][dst] = weight;
     }
 }
-void print() {
-    for (int i=0; i<=v;i++){
-        cout << i << "  ";
-        for(auto &elem : graph[i]){
-            cout << "(" << elem.dst << "," << elem.w << ")" << " ";
+void print()
+{
+    for (int i = 1; i <= v; i++)
+    {
+        for (int j = 1; j <= v; j++)
+        {
+            if (graph[i][j] == INF)
+                cout << setw(3) << "INF" << " ";
+            else
+                cout << setw(3) << graph[i][j] << " ";
         }
         cout << endl;
     }
     cout << endl;
-} 
+}
