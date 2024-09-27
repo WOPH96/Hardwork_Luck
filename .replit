@@ -1,6 +1,6 @@
-run = "g++ test.cpp -o main && ./main"
+run = "bash ./ctrl_shell_script/run_replit.sh"
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "g++ test.cpp -o main
+run = ["sh", "-c", "g++ *.cpp -o main"]

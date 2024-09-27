@@ -59,6 +59,7 @@ int main()
     input();
     print();
     sol_bfs();
+    
 
     return 0;
 }
