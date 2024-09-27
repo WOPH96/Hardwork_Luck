@@ -6,6 +6,7 @@
     "ostream": "cpp",
     "stack": "cpp",
     "vector": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "__bit_reference": "cpp"
   }
 }
