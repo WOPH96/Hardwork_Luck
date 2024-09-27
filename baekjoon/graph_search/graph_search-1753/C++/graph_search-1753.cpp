@@ -31,8 +31,15 @@ void print();
 
 void sol_bfs()
 {
-    priority_queue<int> pq;
-    pq.push(start);
+    priority_queue<Node> &sol_pq = pq[start];
+    while(!sol_pq.empty()){
+        // cout << sol_pq.top().dst << " " << sol_pq.top().w << endl;
+        // sol_pq.pop();
+        Node now = sol_pq.top();
+        sol_pq.pop();
+        
+    }
+    
     // visited[start] = true;
     
     
@@ -48,8 +55,9 @@ int main()
     // 제출 시 주석처리
 
     input();
-    print();
-    // sol_bfs();
+  
+    sol_bfs();
+      print();
     
 
     return 0;
