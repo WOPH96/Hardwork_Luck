@@ -37,7 +37,14 @@ void sol_bfs()
         // sol_pq.pop();
         Node now = sol_pq.top();
         sol_pq.pop();
-        
+        if(graph[start][now.dst]>now.w){
+            graph[start][now.dst] = now.w;
+            while(!pq[now.dst].empty()){
+                Node next = pq[now.dst].top();
+                sol_pq.push(Node(next.dst, next.w+now.w));
+                pq[now.dst].pop();
+            }
+        }
     }
     
     // visited[start] = true;
