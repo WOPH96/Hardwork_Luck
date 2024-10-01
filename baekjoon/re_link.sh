@@ -1,1 +1,1 @@
-/home/woph/Hardwork_Luck/ctrl_shell_script/re_link.sh
+/home/runner/HardworkLuck/ctrl_shell_script/re_link.sh

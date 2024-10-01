@@ -1,1 +1,1 @@
-/home/woph/Hardwork_Luck/ctrl_shell_script/c_make_source.sh
+/home/runner/HardworkLuck/ctrl_shell_script/c_make_source.sh
