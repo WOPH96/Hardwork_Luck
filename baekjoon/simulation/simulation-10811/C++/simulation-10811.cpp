@@ -15,10 +15,10 @@ void input();
 void print();
 void sort_rev(int *start, int n)
 {
-    int *arr = new int[n+1];
-    for (int i = 0; i < n+1; i++)
+    int *arr = new int[n + 1];
+    for (int i = 0; i < n + 1; i++)
     {
-        arr[i] = start[n-i];
+        arr[i] = start[n - i];
         // cout << start[n-i] << " ";
     }
     // for (int i = 0; i < n+1; i++)
@@ -26,11 +26,11 @@ void sort_rev(int *start, int n)
     //         cout << arr[i] << " ";
     //     }
     // cout << endl;
-    
-    for (int i = 0; i < n+1; i++)
-        {
-            start[i] = arr[i];
-        }
+
+    for (int i = 0; i < n + 1; i++)
+    {
+        start[i] = arr[i];
+    }
     delete[] arr;
     // cout << endl;
 }
