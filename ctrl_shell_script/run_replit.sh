@@ -3,7 +3,7 @@
 h="/home/runner/HardworkLuck/"
 site="baekjoon"
 category="simulation"
-number="10811"
+number="14503"
 src_dir="${h}/${site}/${category}/${category}-${number}/C++/"
 
 # src_dir="/home/runner/HardworkLuck/baekjoon/graph_search/graph_search-1753/C++"
