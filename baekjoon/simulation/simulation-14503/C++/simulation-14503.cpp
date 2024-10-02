@@ -16,13 +16,16 @@ int debug[51][51] = {0};
 int dx[4] = {0, 1, 0, -1};
 int dy[4] = {-1, 0, 1, 0};
 
-enum DIRECT
-{
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-};
+// enum DIRECT
+// {
+//     NORTH,
+//     EAST,
+//     SOUTH,
+//     WEST
+// };
+
+// map<DIRECT, string> dir;
+
 enum ROOM
 {
     DIRTY,
@@ -43,11 +46,7 @@ void input();
 void print();
 Node go_back(Node &now)
 {
-    int nd;
-    if (now.d % 2 == 0)
-        nd = now.d ^ 2;
-    else
-        nd = now.d ^ 1;
+    int nd = now.d ^ 2;
     int ny = now.y + dy[nd];
     int nx = now.x + dx[nd];
     // 후진방향 유지
@@ -69,7 +68,7 @@ void sol()
         // 4지점 반시계 방향으로 회전, 청소되지 않은 빈칸을 찾을때까지
         bool cleaned_flag = false;
         int turn_cnt = 0;
-        while (turn_cnt <= 4)
+        while (turn_cnt < 4)
         {
             // 회전
             turn_cnt++;
@@ -91,9 +90,9 @@ void sol()
                 clean_cnt++;
                 // 다음 거로 바로 하도록
                 cleaned_flag = true;
-                debug[ny][nx] = 1;
-                print();
-                debug[ny][nx] = 0;
+                // debug[ny][nx] = 1;
+                // print();
+                // debug[ny][nx] = 0;
                 break;
             }
         }
@@ -112,10 +111,9 @@ void sol()
         else
         {
             q.push(back_node);
-            debug[back_node.y][back_node.x] = 1;
-            print();
-            cout << direct[back_node.d] << endl;
-            debug[back_node.y][back_node.x] = 0;
+            // debug[back_node.y][back_node.x] = 1;
+            // print();
+            // debug[back_node.y][back_node.x] = 0;
             if (MAP[back_node.y][back_node.x] == DIRTY)
             {
                 MAP[back_node.y][back_node.x] = CLEANED;
@@ -134,13 +132,13 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("simulation-14503_input.txt", "r", stdin);
+    // freopen("simulation-14503_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
     // print();
     sol();
-    print();
+    // print();
 
     return 0;
 }
@@ -157,6 +155,10 @@ void input()
             cin >> MAP[i][j];
         }
     }
+    // dir[NORTH] = "NORTH";
+    // dir.insert({EAST, "EAST"});
+    // dir.insert(make_pair(SOUTH, "SOUTH"));
+    // dir[WEST] = "WEST";
 }
 void print()
 {
