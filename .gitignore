@@ -1,1 +1,6 @@
-.vscode
+.vscode/
+/**/cpp_make_source.sh
+/**/c_make_source.sh
+/**/re_link.sh
+/**/make_problem_dir.sh
+!/ctrl_shell_script
