@@ -1,1 +1,0 @@
-/home/runner/HardworkLuck/ctrl_shell_script/make_problem_dir.sh

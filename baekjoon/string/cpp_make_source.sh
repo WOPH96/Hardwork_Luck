@@ -1,1 +1,0 @@
-/home/runner/HardworkLuck/ctrl_shell_script/cpp_make_source.sh
