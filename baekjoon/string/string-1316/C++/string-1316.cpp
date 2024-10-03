@@ -9,31 +9,40 @@ int n;
 vector<string> strs;
 
 // 다른 변수 생성
-int alpa[26]={0};
+
 // 입력, 테스트 출력
 void input();
 void print();
 
-void sol(){
-    int group_word_cnt=0;
-    for(auto &str : strs){
-        stack <char> st;
-        bool break_flag=false;
-        for(char &c : str){
-            if(alpa[c-'a']==0){
-                st.push(c);
-                alpa[c-'a']++;
+void sol()
+{
+    int group_word_cnt = 0;
+    for (auto &str : strs)
+    {
+        stack<char> st;
+        bool break_flag = false;
+        int alpa[26] = {0};
+        for (char &ch : str)
+        {
+            if (alpa[ch - 'a'] == 0)
+            {
+                // cout << " now : " << ch << " ";
+                st.push(ch);
+                alpa[ch - 'a']++;
             }
-            else{
-                cout << "top : " << st.top() << " ";
-                if(!st.empty()&&st.top()!=c){
-                    cout << "wrong group word " << str << endl;
-                    break_flag=true;
+            else
+            {
+                if (!st.empty() && st.top() != ch)
+                {
+                    // cout << "top : " << st.top() << " now : " << ch << " ";
+                    // cout << "wrong group word " << str << endl;
+                    break_flag = true;
                     break;
                 }
             }
         }
-        if(!break_flag){
+        if (!break_flag)
+        {
             group_word_cnt++;
         }
     }
@@ -46,27 +55,31 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("string-1316_input.txt", "r", stdin);
+    // freopen("string-1316_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
 
     return 0;
 }
 
-void input() {
+void input()
+{
     cin >> n;
     cin.ignore();
-    for(int i=0;i<n;i++){
+    for (int i = 0; i < n; i++)
+    {
         string str;
-        getline(cin,str);
+        getline(cin, str);
         strs.push_back(str);
     }
 }
-void print() {
-    for(auto s : strs){
+void print()
+{
+    for (auto s : strs)
+    {
         cout << s << endl;
     }
-} 
+}
