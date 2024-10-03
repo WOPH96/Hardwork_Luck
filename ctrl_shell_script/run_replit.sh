@@ -2,8 +2,8 @@
 
 h="/home/runner/HardworkLuck/"
 site="baekjoon"
-category="graph_search"
-number="2583"
+category="string"
+number="1316"
 src_dir="${h}/${site}/${category}/${category}-${number}/C++/"
 
 # src_dir="/home/runner/HardworkLuck/baekjoon/graph_search/graph_search-1753/C++"
