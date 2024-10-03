@@ -1,4 +1,4 @@
-.vscode/
+**/.vscode/
 /**/cpp_make_source.sh
 /**/c_make_source.sh
 /**/re_link.sh
