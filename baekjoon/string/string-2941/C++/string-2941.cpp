@@ -25,29 +25,100 @@ c,d,z,l,n,s 가 나오면
 void input();
 void print();
 
+// void sol()
+// {
+//     vector<char> check_list = {'c', 'd', 'z', 'l', 'n', 's'};
+//     stack<char> st;
+//     int cnt = 0;
+//     for (char &ch : str)
+//     {
+//         auto it = find(check_list.begin(), check_list.end(), ch);
+//         // 찾았다면
+//         if (it != check_list.end())
+//         {
+//             if (!st.empty() && st.top() == 'd' && ch == 'z')
+//                 st.pop();
+//             st.push(ch);
+//         }
+//         else
+//         {
+//             if (ch == '=')
+//             {
+//                 vector<char> equal_list{'c', 'z', 's'};
+//                 auto it = find(equal_list.begin(), equal_list.end(), st.top());
+//                 if (it != equal_list.end())
+//                 {
+//                     st.pop();
+//                     cnt++;
+//                 }
+//             }
+//             else if (ch == '-')
+//             {
+//                 vector<char> minus_list{'c', 'd'};
+//                 auto it = find(minus_list.begin(), minus_list.end(), st.top());
+//                 if (it != minus_list.end())
+//                 {
+//                     st.pop();
+//                     cnt++;
+//                 }
+//             }
+//             else if (ch == 'j')
+//             {
+//                 vector<char> minus_list{'l', 'n'};
+//                 auto it = find(minus_list.begin(), minus_list.end(), st.top());
+//                 st.pop();
+//                 if (it != minus_list.end())
+//                 {
+//                     cnt++;
+//                 }
+//                 else
+//                 {
+//                     cnt += 2;
+//                 }
+//             }
+//             else
+//             {
+//                 if (!st.empty())
+//                     st.pop();
+//                 cnt++;
+//             }
+//         }
+//     }
+//     cout << cnt << endl;
+// }
+
 void sol()
 {
-    vector<char> check_list = {'c', 'd', 'z', 'l', 'n', 's'};
-    stack<char> st;
+    vector<string> check_list = {"c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="};
     int cnt = 0;
-    for (char &ch : str)
+    for (auto st : check_list)
     {
-        auto it = find(check_list.begin(), check_list.end(), ch);
-        // 찾았다면
-        if (it != check_list.end())
+        auto it = str.find(st);
+        int len = st.length();
+        // auto it = find(str.begin(), str.end(), st);
+        // 해당 단어를 못찾을 때까지
+        while (it != string::npos)
         {
-            if (!st.empty() && st.top() == 'd' && ch == 'z')
-                st.pop();
-            st.push(ch);
+            // cout << st << ": ";
+            // cout << str << endl;
+            str = str.substr(0, it) + "," + str.substr(it + len);
+            cnt++;
+            // cout << str << endl;
+            // cout << cnt << endl;
+            it = str.find(st);
         }
-        else
+        // cout << str << endl;
+        // break;
+    }
+    int comma_cnt = 0;
+    for (auto &ch : str)
+    {
+        if (ch == ',')
         {
-            if (ch == '=')
-            {
-                if (st.top() =)
-            }
+            comma_cnt++;
         }
     }
+    cout << cnt + str.length() - comma_cnt << endl;
 }
 
 int main()
@@ -56,11 +127,11 @@ int main()
     cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("string-2941_input.txt", "r", stdin);
+    // freopen("string-2941_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
 
     return 0;
