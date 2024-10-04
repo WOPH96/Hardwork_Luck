@@ -18,9 +18,6 @@ struct Fish
 };
 struct Shark : Fish
 {
-    int y, x;
-
-    int size;
     int dist;
     Shark(int y, int x, int size = 2, int dist = 0) : Fish(y, x, size), dist(dist) {}
     friend ostream &operator<<(ostream &out, Shark &s)
@@ -41,8 +38,15 @@ Shark *babyshark;
 void input();
 void print();
 
+bool cmp(Fish &f1, Fish &f2)
+{
+    return true;
+}
 void sol()
 {
+    // 매번 sort 비효율적일수도 ?
+    // 아기상어의 현재 시점 기준에서 제일 위/왼쪽에 있는 물고기 찾아내기
+    sort(fishes.begin(), fishes.end(), cmp);
 }
 
 int main()
@@ -56,7 +60,8 @@ int main()
 
     input();
     print();
-    // sol();
+    sol();
+    print();
     delete babyshark;
     return 0;
 }
