@@ -4,3 +4,4 @@
 /**/re_link.sh
 /**/make_problem_dir.sh
 !/ctrl_shell_script/**
+**/**.dSYM
