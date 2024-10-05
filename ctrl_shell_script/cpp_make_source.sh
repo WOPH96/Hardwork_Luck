@@ -34,11 +34,15 @@ using namespace std;
 // 다른 변수 생성
 
 // 입력, 테스트 출력
-void input();
+
 void print();
 
-// void sol(){
-// }
+void sol(){
+}
+
+void input() {
+
+}
 
 int main()
 {
@@ -51,13 +55,15 @@ int main()
 
     input();
     print();
-    // sol();
+    sol();
 
     return 0;
 }
 
-void input() {}
-void print() {} " >> ${source_path}/${prob_number}.cpp
+
+void print() {
+
+} " >> ${source_path}/${prob_number}.cpp
 # 실수방지를 위한 이어쓰기
 
 #open
