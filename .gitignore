@@ -5,3 +5,4 @@
 /**/make_problem_dir.sh
 !/ctrl_shell_script/**
 **/**.dSYM
+**/**.o
