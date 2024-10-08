@@ -61,20 +61,14 @@ struct cmp
     }
     // pq에 직접 넣을 떄는, max heap이기 떄문에, 왼쪽이 크게끔 하면 왼쪽이 맨앞에 나온다. 함수포인터 그대로 넣음, ()는 알아서 pq가 호출한다.
     // sort함수는 오름차순이 기본이기 떄문에(min) 오른쪽이 크게끔 하면 왼쪽이 맨앞에 나온다. cmp()를 넣어서 sorting한다.
-    bool operator()(const Fish &f1, const Fish &f2)
+    bool operator()(const Shark &f1, const Shark &f2)
     {
-        if (distance(f1) == distance(f2))
+        if (f1.y == f2.y)
         {
-
-            if (f1.y == f2.y)
-            {
-                return f1.x > f2.x; // 왼쪽에 있는 놈 먼저 3
-            }
-            else
-                return f1.y > f2.y; // 위쪽에 있는놈 먼저 2
+            return f1.x > f2.x; // 왼쪽에 있는 놈 먼저 3
         }
         else
-            return distance(f1) > distance(f2); // 거리가 짧은 놈 먼저1
+            return f1.y > f2.y; // 위쪽에 있는놈 먼저 2
     }
 };
 // priority_queue<Fish, vector<Fish>, cmp> fishes;
@@ -83,41 +77,34 @@ bool is_valid(int y, int x)
     return (0 <= y && y < n &&
             0 <= x && x < n);
 }
-bool bfs()
+bool bfs(bool (*Fish_visited)[21])
 {
-    // 가장 가까운 물고기
-    Fish target = fishes.back();
-    fishes.pop_back();
-    cout << "target : " << target << endl;
-    if (target.size >= babyshark.size)
-    {
-
-        cout << "잡아먹을수 없음!" << endl;
-        return false;
-    }
 
     bool visited[21][21] = {0};
 
-    queue<Shark> q;
+    priority_queue<Shark, vector<Shark>, cmp> q;
     q.push(babyshark);
     visited[babyshark.y][babyshark.x] = true;
 
-    int dy[4] = {0, 0, 1, -1};
-    int dx[4] = {1, -1, 0, 0};
+    // 상,좌를 먼저 돌도록 순서를 설정
+    // >> 아기상어가 위에 있을 땐, 오른쪽으로 가는게 맞는방향임....
+    // queue 자체를 pq로 바꿔서, 왼쪽위가 오게끔 하자
+    int dy[4] = {-1, 0, 0, 1};
+    int dx[4] = {0, -1, 1, 0};
 
     while (!q.empty())
     {
-        Shark now = q.front();
+        Shark now = q.top();
         q.pop();
-        if (now.y == target.y && now.x == target.x)
+        cout << now.y << "," << now.x << endl;
+        // if문을 넣고,now.x now.y가 물고기면 잡아먹는걸로 변경
+        // 한번에 작업하는게 아닌, pq에 넣는 과정이 필요함
+
+        // 현재가 잡아먹을수 잇는 물고기라면
+        if (0 < graph[now.y][now.x] && graph[now.y][now.x] < now.size &&
+            !Fish_visited[now.y][now.x])
         {
-            // 에러생길수도.. now는 로컬에서 생성된 친구임. 나가면 사라진다
-            // 아예 리턴하는게 나을수도 ?
-            // babyshark = &now;
-            // target 잡아먹은 사이즈가 된다
-            // cout << "도착!" << endl;
-            // cout << "babyshark " << babyshark << endl;
-            // cout << "target" << now << endl;
+
             babyshark.y = now.y;
             babyshark.x = now.x;
             babyshark.dist = now.dist;
@@ -127,6 +114,9 @@ bool bfs()
                 babyshark.size++;
                 babyshark.stack = 0;
             }
+            Fish_visited[now.y][now.x] = true;
+            // 잡아먹기
+            graph[now.y][now.x] = 0;
             return true;
         }
         for (int i = 0; i < 4; i++)
@@ -138,34 +128,38 @@ bool bfs()
                 continue;
             if (visited[ny][nx])
                 continue;
-            // 지나갈 수 있는 길이면 (물고기가 샤크보다 작을 때)
-            if (graph[ny][nx] <= now.size)
+            // 지나갈 수 있는 길이면
+            if (0 <= graph[now.y][now.x] && graph[now.y][now.x] <= now.size)
             {
+                // cout << ny << "," << nx << endl;
                 q.push(Shark(ny, nx, now.size, now.dist + 1));
                 visited[ny][nx] = true;
             }
         }
     }
+    // 다 돌았는데 아기상어보다 작은 애가 없으면
     return false;
 }
 void sol()
 {
     int cnt = 0;
-    while (!fishes.empty())
+    bool Fish_visited[21][21] = {0};
+    while (1)
     { // 가까운 물고기만 중요하니까 한개만 정렬
         // pop_back으로 효율적으로 물고기 잡아먹을 수 있음
         // 맨 마지막 1개에만 정렬값 배치
-        nth_element(fishes.begin(), fishes.end() - 1, fishes.end(), cmp());
+        // nth_element(fishes.begin(), fishes.end() - 1, fishes.end(), cmp());
         // partial_sort(fishes.begin(), fishes.begin() + 1, fishes.end(), cmp());
         // partial_sort(fishes.end() - 2, fishes.end() - 1, fishes.end(), cmp());
         // sort(fishes.begin(), fishes.end(), cmp());
         cnt++;
         cout << cnt << endl;
-        if (!bfs())
+        if (!bfs(Fish_visited))
             break;
         print();
 
-        // break;
+        // if (cnt > 12)
+        //     break;
     }
 }
 
