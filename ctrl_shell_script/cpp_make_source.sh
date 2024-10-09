@@ -47,7 +47,7 @@ void input() {
 int main()
 {
     std::ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    cin.tie(nullptr);
 
     // 제출 시 주석처리
     freopen(\"${prob_number}_input.txt\", \"r\", stdin);
