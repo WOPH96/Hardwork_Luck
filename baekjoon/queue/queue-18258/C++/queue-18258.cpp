@@ -107,7 +107,7 @@ int main()
     // cin.tie(NULL);
 
     // 제출 시 주석처리
-    freopen("queue-18258_input.txt", "r", stdin);
+    // freopen("queue-18258_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
