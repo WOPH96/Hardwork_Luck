@@ -41,40 +41,40 @@ Shark babyshark{0, 0};
 // 입력, 테스트 출력
 void input();
 void print();
+void print(int, int);
 
 struct cmp
 {
 
-    int distance(const Fish &f)
+    int distance(const Shark &s)
     {
         // 사이즈를 포함할 것인가.. 말것인가..
         // 포함해야됨. 먹을 수 있고, 가까운 놈으로 선정
         // size가 크거나 같으면 일단 distance 99999로 선정
         // 먹으려면 작아야 하기 때문
-        if (f.size >= babyshark.size)
-            return 99999;
-        else
-        {
-            // 거리는 (물고기 x - 상어 x ) + abs(물고기 y - 상어 y)
-            return abs(f.x - babyshark.x) + abs(f.y - babyshark.y);
-        }
+        // if (s.size > babyshark.size)
+        //     return 99999;
+        // else
+        // {
+        // 거리는 (물고기 x - 상어 x ) + abs(물고기 y - 상어 y)
+        return abs(s.x - babyshark.x) + abs(s.y - babyshark.y);
+        // }
     }
     // pq에 직접 넣을 떄는, max heap이기 떄문에, 왼쪽이 크게끔 하면 왼쪽이 맨앞에 나온다. 함수포인터 그대로 넣음, ()는 알아서 pq가 호출한다.
     // sort함수는 오름차순이 기본이기 떄문에(min) 오른쪽이 크게끔 하면 왼쪽이 맨앞에 나온다. cmp()를 넣어서 sorting한다.
-    bool operator()(const Fish &f1, const Fish &f2)
+    bool operator()(const Shark &s1, const Shark &s2)
     {
-        if (distance(f1) == distance(f2))
+        if (distance(s1) == distance(s2))
         {
-
-            if (f1.y == f2.y)
+            if (s1.y == s2.y)
             {
-                return f1.x > f2.x; // 왼쪽에 있는 놈 먼저 3
+                return s1.x > s2.x; // 왼쪽에 있는 놈 먼저 3
             }
             else
-                return f1.y > f2.y; // 위쪽에 있는놈 먼저 2
+                return s1.y > s2.y; // 위쪽에 있는놈 먼저 2
         }
         else
-            return distance(f1) > distance(f2); // 거리가 짧은 놈 먼저1
+            return distance(s1) > distance(s2);
     }
 };
 // priority_queue<Fish, vector<Fish>, cmp> fishes;
@@ -83,41 +83,33 @@ bool is_valid(int y, int x)
     return (0 <= y && y < n &&
             0 <= x && x < n);
 }
-bool bfs()
+bool bfs(bool (*Fish_visited)[21])
 {
-    // 가장 가까운 물고기
-    Fish target = fishes.back();
-    fishes.pop_back();
-    cout << "target : " << target << endl;
-    if (target.size >= babyshark.size)
-    {
-
-        cout << "잡아먹을수 없음!" << endl;
-        return false;
-    }
 
     bool visited[21][21] = {0};
 
-    queue<Shark> q;
+    priority_queue<Shark, vector<Shark>, cmp> q;
     q.push(babyshark);
     visited[babyshark.y][babyshark.x] = true;
 
-    int dy[4] = {0, 0, 1, -1};
-    int dx[4] = {1, -1, 0, 0};
+    // 상,좌를 먼저 돌도록 순서를 설정
+    // >> 아기상어가 위에 있을 땐, 오른쪽으로 가는게 맞는방향임....
+    // queue 자체를 pq로 바꿔서, 왼쪽위가 오게끔 하자
+    int dy[4] = {-1, 0, 0, 1};
+    int dx[4] = {0, -1, 1, 0};
 
     while (!q.empty())
     {
-        Shark now = q.front();
+        Shark now = q.top();
         q.pop();
-        if (now.y == target.y && now.x == target.x)
+        // print(now.y, now.x);
+        // if문을 넣고,now.x now.y가 물고기면 잡아먹는걸로 변경
+        // 한번에 작업하는게 아닌, pq에 넣는 과정이 필요함
+
+        // 현재가 잡아먹을수 잇는 물고기라면
+        if (0 < graph[now.y][now.x] && graph[now.y][now.x] < now.size)
+        // &&   !Fish_visited[now.y][now.x])
         {
-            // 에러생길수도.. now는 로컬에서 생성된 친구임. 나가면 사라진다
-            // 아예 리턴하는게 나을수도 ?
-            // babyshark = &now;
-            // target 잡아먹은 사이즈가 된다
-            // cout << "도착!" << endl;
-            // cout << "babyshark " << babyshark << endl;
-            // cout << "target" << now << endl;
             babyshark.y = now.y;
             babyshark.x = now.x;
             babyshark.dist = now.dist;
@@ -127,6 +119,8 @@ bool bfs()
                 babyshark.size++;
                 babyshark.stack = 0;
             }
+            // Fish_visited[now.y][now.x] = true;
+            // 잡아먹기
             graph[now.y][now.x] = 0;
             return true;
         }
@@ -139,35 +133,41 @@ bool bfs()
                 continue;
             if (visited[ny][nx])
                 continue;
-            // 지나갈 수 있는 길이면 (물고기가 샤크보다 작을 때)
-            if (graph[ny][nx] <= now.size)
+            // 지나갈 수 있는 길이면
+            if (0 <= graph[now.y][now.x] && graph[now.y][now.x] <= now.size)
             {
+                // cout << ny << "," << nx << endl;
                 q.push(Shark(ny, nx, now.size, now.dist + 1));
                 visited[ny][nx] = true;
             }
         }
     }
+    // 다 돌았는데 아기상어보다 작은 애가 없으면
     return false;
 }
 void sol()
 {
     int cnt = 0;
-    while (!fishes.empty())
+    bool Fish_visited[21][21] = {0};
+    while (1)
     { // 가까운 물고기만 중요하니까 한개만 정렬
         // pop_back으로 효율적으로 물고기 잡아먹을 수 있음
         // 맨 마지막 1개에만 정렬값 배치
-        nth_element(fishes.begin(), fishes.end() - 1, fishes.end(), cmp());
+        // nth_element(fishes.begin(), fishes.end() - 1, fishes.end(), cmp());
         // partial_sort(fishes.begin(), fishes.begin() + 1, fishes.end(), cmp());
         // partial_sort(fishes.end() - 2, fishes.end() - 1, fishes.end(), cmp());
         // sort(fishes.begin(), fishes.end(), cmp());
         cnt++;
-        cout << cnt << endl;
-        if (!bfs())
+        // cout << cnt << endl;
+        if (!bfs(Fish_visited))
             break;
-        print();
 
-        // break;
+        // print();
+
+        // if (cnt > 12)
+        //     break;
     }
+    cout << babyshark.dist << "\n";
 }
 
 int main()
@@ -180,10 +180,9 @@ int main()
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
     // print();
-    // delete babyshark;
     return 0;
 }
 
@@ -225,7 +224,7 @@ void print()
         for (int j = 0; j < n; j++)
         {
             if (i == babyshark.y && j == babyshark.x)
-                cout << "9 ";
+                cout << babyshark.size << " ";
             else
                 cout << debug[i][j] << " ";
         }
@@ -255,4 +254,30 @@ void print()
     // }
     cout << "Babyshark : " << babyshark << endl;
     cout << endl;
+    //
+}
+
+void print(int y, int x)
+{
+    int debug[21][21] = {0};
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << graph[i][j] << " ";
+        }
+
+        cout << "\t";
+        for (int j = 0; j < n; j++)
+        {
+            if (i == y && j == x)
+                cout << "t ";
+            else
+                cout << debug[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+    //
 }

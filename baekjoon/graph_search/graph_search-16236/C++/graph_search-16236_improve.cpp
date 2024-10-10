@@ -41,34 +41,40 @@ Shark babyshark{0, 0};
 // 입력, 테스트 출력
 void input();
 void print();
+void print(int, int);
 
 struct cmp
 {
 
-    int distance(const Fish &f)
+    int distance(const Shark &s)
     {
         // 사이즈를 포함할 것인가.. 말것인가..
         // 포함해야됨. 먹을 수 있고, 가까운 놈으로 선정
         // size가 크거나 같으면 일단 distance 99999로 선정
         // 먹으려면 작아야 하기 때문
-        if (f.size >= babyshark.size)
-            return 99999;
-        else
-        {
-            // 거리는 (물고기 x - 상어 x ) + abs(물고기 y - 상어 y)
-            return abs(f.x - babyshark.x) + abs(f.y - babyshark.y);
-        }
+        // if (s.size > babyshark.size)
+        //     return 99999;
+        // else
+        // {
+        // 거리는 (물고기 x - 상어 x ) + abs(물고기 y - 상어 y)
+        return abs(s.x - babyshark.x) + abs(s.y - babyshark.y);
+        // }
     }
     // pq에 직접 넣을 떄는, max heap이기 떄문에, 왼쪽이 크게끔 하면 왼쪽이 맨앞에 나온다. 함수포인터 그대로 넣음, ()는 알아서 pq가 호출한다.
     // sort함수는 오름차순이 기본이기 떄문에(min) 오른쪽이 크게끔 하면 왼쪽이 맨앞에 나온다. cmp()를 넣어서 sorting한다.
-    bool operator()(const Shark &f1, const Shark &f2)
+    bool operator()(const Shark &s1, const Shark &s2)
     {
-        if (f1.y == f2.y)
+        if (distance(s1) == distance(s2))
         {
-            return f1.x > f2.x; // 왼쪽에 있는 놈 먼저 3
+            if (s1.y == s2.y)
+            {
+                return s1.x > s2.x; // 왼쪽에 있는 놈 먼저 3
+            }
+            else
+                return s1.y > s2.y; // 위쪽에 있는놈 먼저 2
         }
         else
-            return f1.y > f2.y; // 위쪽에 있는놈 먼저 2
+            return distance(s1) > distance(s2);
     }
 };
 // priority_queue<Fish, vector<Fish>, cmp> fishes;
@@ -96,15 +102,14 @@ bool bfs(bool (*Fish_visited)[21])
     {
         Shark now = q.top();
         q.pop();
-        cout << now.y << "," << now.x << endl;
+        // print(now.y, now.x);
         // if문을 넣고,now.x now.y가 물고기면 잡아먹는걸로 변경
         // 한번에 작업하는게 아닌, pq에 넣는 과정이 필요함
 
         // 현재가 잡아먹을수 잇는 물고기라면
-        if (0 < graph[now.y][now.x] && graph[now.y][now.x] < now.size &&
-            !Fish_visited[now.y][now.x])
+        if (0 < graph[now.y][now.x] && graph[now.y][now.x] < now.size)
+        // &&   !Fish_visited[now.y][now.x])
         {
-
             babyshark.y = now.y;
             babyshark.x = now.x;
             babyshark.dist = now.dist;
@@ -114,7 +119,7 @@ bool bfs(bool (*Fish_visited)[21])
                 babyshark.size++;
                 babyshark.stack = 0;
             }
-            Fish_visited[now.y][now.x] = true;
+            // Fish_visited[now.y][now.x] = true;
             // 잡아먹기
             graph[now.y][now.x] = 0;
             return true;
@@ -153,14 +158,16 @@ void sol()
         // partial_sort(fishes.end() - 2, fishes.end() - 1, fishes.end(), cmp());
         // sort(fishes.begin(), fishes.end(), cmp());
         cnt++;
-        cout << cnt << endl;
+        // cout << cnt << endl;
         if (!bfs(Fish_visited))
             break;
-        print();
+
+        // print();
 
         // if (cnt > 12)
         //     break;
     }
+    cout << babyshark.dist << "\n";
 }
 
 int main()
@@ -173,7 +180,7 @@ int main()
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
     // print();
     return 0;
@@ -217,7 +224,7 @@ void print()
         for (int j = 0; j < n; j++)
         {
             if (i == babyshark.y && j == babyshark.x)
-                cout << "9 ";
+                cout << babyshark.size << " ";
             else
                 cout << debug[i][j] << " ";
         }
@@ -247,4 +254,30 @@ void print()
     // }
     cout << "Babyshark : " << babyshark << endl;
     cout << endl;
+    //
+}
+
+void print(int y, int x)
+{
+    int debug[21][21] = {0};
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << graph[i][j] << " ";
+        }
+
+        cout << "\t";
+        for (int j = 0; j < n; j++)
+        {
+            if (i == y && j == x)
+                cout << "t ";
+            else
+                cout << debug[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+    //
 }
