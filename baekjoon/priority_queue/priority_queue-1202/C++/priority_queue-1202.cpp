@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 // 입력변수생성
@@ -10,11 +11,11 @@ int n, k;
 // 다른 변수 생성
 struct Jew
 {
-    int m, v;
-    Jew(int m, int v) : m(m), v(v) {}
+    int mass, value;
+    Jew(int m, int v) : mass(m), value(v) {}
     friend ostream &operator<<(ostream &out, Jew &j)
     {
-        out << j.m << "," << j.v;
+        out << j.mass << "," << j.value;
         return out;
     }
 };
@@ -23,35 +24,42 @@ struct cmp
 {
     bool operator()(Jew &j1, Jew &j2)
     {
-        if (j1.v == j2.v)
+        if (j1.mass == j2.mass)
         {
-            return j1.m > j2.m;
+            return j1.value > j2.value;
         }
-        return j1.v < j2.v;
+        return j1.mass < j2.mass;
     }
 };
 
-priority_queue<Jew, vector<Jew>, cmp> jew_pq;
-priority_queue<int, vector<int>, less<int>> bag_pq;
+vector<Jew> jewels;
+vector<int> bags;
+priority_queue<int> pq;
 // 입력, 테스트 출력
 
 void print();
 
 void sol()
 {
-    long long tot = 0;
-    while (!jew_pq.empty())
+    sort(jewels.begin(), jewels.end(), cmp());
+    sort(bags.begin(), bags.end(), less<int>());
+    int idx = 0;
+    long long max_value = 0;
+    for (auto &bag : bags)
     {
-        if (jew_pq.top().m <= bag_pq.top())
+        while (idx < n && jewels[idx].mass <= bag)
         {
-            tot += jew_pq.top().v;
-            bag_pq.pop();
+            pq.push(jewels[idx].value);
+            idx++;
         }
-        jew_pq.pop();
-        if (bag_pq.empty())
-            break;
+        if (!pq.empty())
+        {
+            int best_value_jew = pq.top();
+            max_value += best_value_jew;
+            pq.pop();
+        }
     }
-    cout << tot << "\n";
+    cout << max_value << endl;
 }
 
 void input()
@@ -61,13 +69,13 @@ void input()
     {
         int m, v;
         cin >> m >> v;
-        jew_pq.emplace(m, v);
+        jewels.emplace_back(m, v);
     }
     for (int i = 0; i < k; i++)
     {
         int weight;
         cin >> weight;
-        bag_pq.push(weight);
+        bags.push_back(weight);
     }
 }
 
@@ -77,27 +85,25 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("priority_queue-1202_input.txt", "r", stdin);
+    // freopen("priority_queue-1202_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
     // print();
     sol();
+    print();
 
     return 0;
 }
 
 void print()
 {
-    while (!jew_pq.empty())
+    for (auto &jw : jewels)
     {
-        Jew J = jew_pq.top();
-        cout << J << "\n";
-        jew_pq.pop();
+        cout << jw << endl;
     }
-    while (!bag_pq.empty())
+    for (auto &bag : bags)
     {
-        cout << bag_pq.top() << "\n";
-        bag_pq.pop();
+        cout << bag << endl;
     }
 }
