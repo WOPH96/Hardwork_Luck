@@ -14,15 +14,11 @@ void print();
 
 void sol()
 {
-    cout << "***" << "\n";
-    cout << "* *" << "\n";
-    cout << "***" << "\n";
 }
 
 void input()
 {
     cin >> n;
-    n /= 3;
 }
 
 int main()
