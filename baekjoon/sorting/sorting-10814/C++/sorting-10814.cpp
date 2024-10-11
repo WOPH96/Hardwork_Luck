@@ -61,7 +61,7 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("sorting-10814_input.txt", "r", stdin);
+    // freopen("sorting-10814_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
