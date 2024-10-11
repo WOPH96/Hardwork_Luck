@@ -54,8 +54,8 @@ int main()
     // 제출 시 주석처리
 
     input();
-    print();
     sol();
+    print();
 
     return 0;
 }
