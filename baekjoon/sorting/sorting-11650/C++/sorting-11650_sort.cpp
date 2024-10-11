@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <queue>
 using namespace std;
 
 // 입력변수생성
@@ -13,7 +12,7 @@ struct Node
     int x, y;
     Node(int x, int y) : y(y), x(x) {}
 };
-
+vector<Node> nodes;
 // 입력, 테스트 출력
 
 struct cmp
@@ -22,17 +21,17 @@ struct cmp
     {
         if (n1.x == n2.x)
         {
-            return n1.y > n2.y;
+            return n1.y < n2.y;
         }
 
-        return n1.x > n2.x;
+        return n1.x < n2.x;
     }
 };
-priority_queue<Node, vector<Node>, cmp> nodes;
 void print();
 
 void sol()
 {
+    sort(nodes.begin(), nodes.end(), cmp());
 }
 
 void input()
@@ -42,7 +41,7 @@ void input()
     {
         int x, y;
         cin >> x >> y;
-        nodes.emplace(x, y);
+        nodes.emplace_back(x, y);
     }
 }
 
@@ -65,10 +64,8 @@ int main()
 
 void print()
 {
-    while (!nodes.empty())
+    for (auto &elem : nodes)
     {
-        Node elem = nodes.top();
         cout << elem.x << " " << elem.y << "\n";
-        nodes.pop();
     }
 }
