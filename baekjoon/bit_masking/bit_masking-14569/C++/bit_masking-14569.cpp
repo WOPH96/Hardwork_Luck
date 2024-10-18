@@ -29,18 +29,18 @@ void input()
         {
             int time;
             cin >> time;
-            classes[j].push_back(time);
+            classes[i].push_back(time);
         }
     }
     cin >> m;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < m; i++)
     {
         cin >> p;
         for (int j = 0; j < p; j++)
         {
             int time;
             cin >> time;
-            classes[j].push_back(time);
+            classes_std[i].push_back(time);
         }
     }
 }
