@@ -42,7 +42,7 @@ void bfs(int start)
     visited[start] = true;
     while (!q.empty())
     {
-        auto now = q.front();
+        Node now = q.front();
         q.pop();
         for (int &next : graph[now.person])
         {
@@ -97,7 +97,7 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("graph_search-1389_input.txt", "r", stdin);
+    // freopen("graph_search-1389_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
