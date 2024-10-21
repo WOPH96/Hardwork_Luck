@@ -48,7 +48,7 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("recommand-2693_input.txt", "r", stdin);
+    // freopen("recommand-2693_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
