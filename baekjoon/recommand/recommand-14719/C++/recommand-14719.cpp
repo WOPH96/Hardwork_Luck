@@ -25,6 +25,7 @@ void sol()
         for (int j = 0; j < w; j++)
         {
             // 아직 1을 못만났다면!
+            // 이거 1이 홀수 일떄 수정해야함 ****
             if (arr[i][j] == 1 && !find_one)
             {
                 find_one = true;
