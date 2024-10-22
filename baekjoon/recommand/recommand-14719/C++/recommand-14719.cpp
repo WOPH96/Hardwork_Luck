@@ -20,32 +20,34 @@ void sol()
     int total_rain = 0;
     for (int i = h - 1; i >= 0; i--)
     {
-        bool find_one = false;
+
+        int prev = -1;
         int cnt = 0;
         for (int j = 0; j < w; j++)
         {
-            // 아직 1을 못만났다면!
-            // 이거 1이 홀수 일떄 수정해야함 ****
-            if (arr[i][j] == 1 && !find_one)
+            // 1을 만나고 처음
+            if (arr[i][j] == 1 && prev == -1)
             {
-                find_one = true;
+
+                prev = 1;
             }
-            // 1을 만난 상태로 0을 만났다면!
-            else if (arr[i][j] == 0 && find_one)
+            // 1을 만난적이 있고, 현재가 0인 경우
+            else if (arr[i][j] == 0 && prev != -1)
             {
                 cnt++;
+                prev = 0;
             }
-            // 1을 만난 상태로 1을 또 만났다면!
-            // 이거 1이 홀수 일떄 수정해야함 ****
-            else if (arr[i][j] == 1 && find_one)
+            // 이전이 0이고 현재가 1인경우
+            else if (arr[i][j] == 1 && prev == 0)
             {
                 total_rain += cnt;
                 cnt = 0;
-                find_one = false;
+                prev = 1;
             }
         }
-        cout << h - i << "층 빗물 : " << total_rain << endl;
+        // cout << h - i << "층 빗물 : " << total_rain << endl;
     }
+    cout << total_rain << endl;
 }
 
 void input()
@@ -68,12 +70,12 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("recommand-14719_input.txt", "r", stdin);
+    // freopen("recommand-14719_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
     sol();
-    print();
+    // print();
 
     return 0;
 }
