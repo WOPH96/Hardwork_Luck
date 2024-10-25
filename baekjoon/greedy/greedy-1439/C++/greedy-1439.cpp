@@ -45,7 +45,7 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("greedy-1439_input.txt", "r", stdin);
+    // freopen("greedy-1439_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
