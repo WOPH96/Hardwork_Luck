@@ -14,28 +14,34 @@ int t;
 void print(int,int);
 
 struct Move{
-    int pos, cur, year;
-    Move(int p, int c, int y) : pos(p),s cur(c), year(y){}
+    int pos, cur, op_time;
+    Move(int p, int c, int t) : pos(p), cur(c), op_time(t){}
 };
 void sol(int start,int target){
+    
     //bfs
+    bool *visited = new bool[target+1];
+    fill(visited,visited+target+1,false);
     queue<Move> q;
     
-    q.emplace(start,0);
+    q.emplace(start,0,0);
+    visited[start] = true;
     while(!q.empty()){
         Move now = q.front();
         q.pop();
         if(now.cur == target){
-            cout << now.year << endl;
+            cout << now.op_time << endl;
             return;
         }
-        for(auto &elem : {now.cur-1,now.cur,now.cur+1}){
-            if(elem <0) continue;
-            int next = now.cur+elem;
-            q.emplace(next,now.year+1);
+        for(auto &year_speed : {now.cur-1,now.cur,now.cur+1}){
+            if(year_speed <0) continue;
+            int next = now.pos + year_speed;
+            if(visited[next]) continue;
+            q.emplace(next,year_speed,now.op_time+1);
+            visited[next] = true;
         }
     }
-    
+    delete [] visited;
 }
 
 void input() {
