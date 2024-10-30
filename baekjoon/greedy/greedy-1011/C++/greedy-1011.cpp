@@ -14,8 +14,8 @@ int t;
 void print(int,int);
 
 struct Move{
-    int cur, year;
-    Move(int c, int y) : cur(c), year(y){}
+    int pos, cur, year;
+    Move(int p, int c, int y) : pos(p),s cur(c), year(y){}
 };
 void sol(int start,int target){
     //bfs
