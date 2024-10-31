@@ -1,9 +1,10 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <cmath>
 
 using namespace std;
+#define ll long long
 
 // 입력변수생성
 int t;
@@ -11,50 +12,58 @@ int t;
 
 // 입력, 테스트 출력
 
-void print(int,int);
+void print(ll, ll);
 
-struct Move{
-    int pos, cur, op_time;
-    Move(int p, int c, int t) : pos(p), cur(c), op_time(t){}
-};
-void sol(int start,int target){
-    
-    //bfs
-    bool *visited = new bool[target+1];
-    fill(visited,visited+target+1,false);
-    queue<Move> q;
-    
-    q.emplace(start,0,0);
-    visited[start] = true;
-    while(!q.empty()){
-        Move now = q.front();
-        q.pop();
-        if(now.cur == target){
-            cout << now.op_time << endl;
-            return;
-        }
-        for(auto &year_speed : {now.cur-1,now.cur,now.cur+1}){
-            if(year_speed <0) continue;
-            int next = now.pos + year_speed;
-            if(visited[next]) continue;
-            q.emplace(next,year_speed,now.op_time+1);
-            visited[next] = true;
-        }
+bool is_sqarue_num(ll num)
+{
+    return (num == pow(static_cast<int>(sqrt(num)), 2));
+}
+int sol(ll gap)
+{
+    if (gap == 1)
+        return 1;
+    else if (gap == 2)
+        return 2;
+
+    ll num;
+    if (is_sqarue_num(gap))
+    {
+        /*
+        1->1
+        2->3
+        3->5
+        4->7
+        time = 2n-1;
+        */
+        return 2 * static_cast<int>(sqrt(gap)) - 1;
     }
-    delete [] visited;
+    else
+    {
+        for (num = gap;; num++)
+        {
+            // 가까운 제곱수 찾기
+            if (is_sqarue_num(num))
+                break;
+        }
+        ll mn_val = static_cast<int>(sqrt(num)) - 1;
+        ll mx_val = static_cast<int>(sqrt(num));
+    }
+    cout << num << endl;
+    return 0;
 }
 
-void input() {
+void input()
+{
     cin >> t;
-    while(t){
-        int start, target;
+    while (t)
+    {
+        ll start, target;
         cin >> start >> target;
-        
-        print(start,target);
-        sol(start,target);
+
+        print(start, target);
+        sol(target - start);
         t--;
     }
-    
 }
 
 int main()
@@ -73,7 +82,7 @@ int main()
     return 0;
 }
 
-
-void print(int start, int target) {
-    cout << start << target <<"\n"<< endl ;
-} 
+void print(ll start, ll target)
+{
+    cout << start << " " << target << endl;
+}
