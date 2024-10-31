@@ -48,8 +48,13 @@ int sol(ll gap)
         }
         ll mn_val = static_cast<int>(sqrt(num)) - 1;
         ll mx_val = static_cast<int>(sqrt(num));
+        ll avg_val = static_cast<int>((pow(mn_val, 2) + pow(mx_val, 2)) / 2);
+        if (avg_val > gap)
+            return 2 * static_cast<int>(sqrt(mx_val)) - 1;
+        else
+            return 2 * static_cast<int>(sqrt(mn_val));
     }
-    cout << num << endl;
+    // cout << num << endl;
     return 0;
 }
 
@@ -62,7 +67,7 @@ void input()
         cin >> start >> target;
 
         print(start, target);
-        sol(target - start);
+        cout << sol(target - start) << endl;
         t--;
     }
 }
