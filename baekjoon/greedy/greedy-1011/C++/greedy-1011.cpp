@@ -25,7 +25,7 @@ int sol(ll gap)
     else if (gap == 2)
         return 2;
 
-    ll num;
+    ll num = 0;
     if (is_sqarue_num(gap))
     {
         /*
@@ -35,6 +35,7 @@ int sol(ll gap)
         4->7
         time = 2n-1;
         */
+        // cout << 2 * static_cast<int>(sqrt(gap)) - 1 << endl;
         return 2 * static_cast<int>(sqrt(gap)) - 1;
     }
     else
