@@ -20,6 +20,7 @@ bool is_sqarue_num(ll num)
 }
 int sol(ll gap)
 {
+    // cout << "갭 " << gap << endl;
     if (gap == 1)
         return 1;
     else if (gap == 2)
@@ -46,13 +47,14 @@ int sol(ll gap)
             if (is_sqarue_num(num))
                 break;
         }
-        ll mn_val = static_cast<int>(sqrt(num)) - 1;
-        ll mx_val = static_cast<int>(sqrt(num));
-        ll avg_val = static_cast<int>((pow(mn_val, 2) + pow(mx_val, 2)) / 2);
-        if (avg_val > gap)
-            return 2 * static_cast<int>(sqrt(mx_val)) - 1;
+        ll mn_val = static_cast<int>(sqrt(num)) - 1;                          // 자연수-1
+        ll mx_val = static_cast<int>(sqrt(num));                              // 자연수
+        ll avg_val = static_cast<int>((pow(mn_val, 2) + pow(mx_val, 2)) / 2); // 두개값 평균
+        // cout << "평균" << avg_val << endl;
+        if (gap > avg_val)
+            return 2 * mx_val - 1;
         else
-            return 2 * static_cast<int>(sqrt(mn_val));
+            return 2 * mn_val;
     }
     // cout << num << endl;
     return 0;
@@ -66,8 +68,9 @@ void input()
         ll start, target;
         cin >> start >> target;
 
-        print(start, target);
-        cout << sol(target - start) << endl;
+        // print(start, target);
+        ll answer = sol(target - start);
+        cout << answer << endl;
         t--;
     }
 }
@@ -78,7 +81,7 @@ int main()
     cin.tie(nullptr);
 
     // 제출 시 주석처리
-    freopen("greedy-1011_input.txt", "r", stdin);
+    // freopen("greedy-1011_input.txt", "r", stdin);
     // 제출 시 주석처리
 
     input();
