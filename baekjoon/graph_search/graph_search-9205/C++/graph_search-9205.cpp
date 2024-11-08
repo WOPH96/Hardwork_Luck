@@ -20,10 +20,12 @@ struct Pos
         return out;
     }
 };
-void print(int n, Pos &house, Pos *conv, Pos &dest);
+void print(int n, Pos &house, Pos *cvst, Pos &dest);
 
-void sol(Pos &house, Pos *conv, Pos &dest)
+void sol(Pos &house, Pos *cvst, Pos &dest)
 {
+    // 50미터 *20 == 1000 m 까지는 이동 가능함
+    // 아기상어 때처럼,, 분신 가고 이동?
 }
 
 void input()
@@ -33,19 +35,19 @@ void input()
     {
         int n;
         Pos house;
-        Pos *Conv = new Pos[n];
+        Pos *cvst = new Pos[n];
         Pos dest;
         cin >> n;
         cin >> house.y >> house.x;
 
         for (int i = 0; i < n; i++)
         {
-            cin >> Conv[i].y >> Conv[i].x;
+            cin >> cvst[i].y >> cvst[i].x;
         }
         cin >> dest.y >> dest.x;
-        sol(house, Conv, dest);
-        print(n, house, Conv, dest);
-        delete[] Conv;
+        sol(house, cvst, dest);
+        print(n, house, cvst, dest);
+        delete[] cvst;
         t--;
     }
 }
@@ -66,12 +68,12 @@ int main()
     return 0;
 }
 
-void print(int n, Pos &house, Pos *conv, Pos &dest)
+void print(int n, Pos &house, Pos *cvst, Pos &dest)
 {
     cout << house << endl;
     for (int i = 0; i < n; i++)
     {
-        cout << conv[i] << endl;
+        cout << cvst[i] << endl;
     }
     cout << dest << endl;
     cout << endl;
