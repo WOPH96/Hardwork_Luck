@@ -8,6 +8,7 @@ using namespace std;
 // 입력변수생성
 int n, m;
 char prev_graph[1501][1501] = {0};
+char next_graph[1501][1501] = {0};
 // char empty_graph[100][1501][1501] = {0};
 // 다른 변수 생성
 int dy[4] = {0, 0, 1, -1};
@@ -34,7 +35,7 @@ Swans sw;
 
 // 입력, 테스트 출력
 
-void print(char (*prev)[1501]);
+void print(char (*prev)[1501], char (*next)[1501]);
 
 #define WATER '.'
 #define ICE 'X'
@@ -45,27 +46,35 @@ bool is_valid(int y, int x)
     return (y >= 0 && y < n && x >= 0 && x < m);
 }
 
-void melting(char (*prev)[1501])
+void melting(char (*prev)[1501], char (*next)[1501])
 {
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            if (prev[i][j] != ICE)
-                continue;
-            for (int k = 0; k < 4; k++)
+            next[i][j] = prev[i][j];
+            if (prev[i][j] == WATER)
             {
-                int ny = i + dy[k];
-                int nx = j + dx[k];
-                if (!is_valid(ny, nx))
-                {
-                    continue;
-                }
-                if (prev[ny][nx] == WATER)
-                {
+                continue;
+            }
+            else
+            {
+                // cout << i << "," << j << ":" << prev[i][j] << endl;
 
-                    prev[i][j] = WATER;
+                for (int k = 0; k < 4; k++)
+                {
+                    int ny = i + dy[k];
+                    int nx = j + dx[k];
+                    if (!is_valid(ny, nx))
+                    {
+                        continue;
+                    }
+                    if (prev[ny][nx] == WATER && next[i][j] == ICE)
+                    {
+
+                        next[i][j] = WATER;
+                    }
                 }
             }
         }
@@ -103,9 +112,11 @@ bool bfs(char (*ice)[1501], bool (*visited)[1501])
     }
     return false;
 }
-void sol(char (*prev)[1501])
+void sol(char (*prev)[1501], char (*next)[1501])
 {
     char(*prev_ice)[1501] = prev;
+    char(*next_ice)[1501] = next;
+    char(*temp)[1501];
     int day = 0;
     // bool meet_success = false;
     while (true)
@@ -122,13 +133,23 @@ void sol(char (*prev)[1501])
         }
 
         // 빙산 녹이기
-        melting(prev_ice);
-        print(prev_ice);
+        melting(prev_ice, next_ice);
+        // print(prev_ice, next_ice);
 
         // SWAP
 
+        temp = prev_ice;
+        prev_ice = next_ice;
+        next_ice = temp;
         // 더 녹여야 한다면,
         // next 초기화
+        // for (int i = 0; i < n; i++)
+        // {
+        //     for (int j = 0; j < m; j++)
+        //     {
+        //         next_ice[i][j] = 0;
+        //     }
+        // }
 
         day++;
     }
@@ -169,13 +190,13 @@ int main()
     // 제출 시 주석처리
 
     input();
-    sol(prev_graph);
+    sol(prev_graph, next_graph);
     // print();
 
     return 0;
 }
 
-void print(char (*prev)[1501])
+void print(char (*prev)[1501], char (*next)[1501])
 {
     cout << sw.start << " " << sw.target << endl;
     cout << "================" << endl;
@@ -188,14 +209,14 @@ void print(char (*prev)[1501])
         cout << endl;
     }
     cout << endl;
-    // for (int i = 0; i < n; i++)
-    // {
-    //     for (int j = 0; j < m; j++)
-    //     {
-    //         cout << next[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-    // cout << endl;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cout << next[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
     cout << "================" << endl;
 }
