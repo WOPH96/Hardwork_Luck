@@ -105,7 +105,7 @@ void sol(int (*prev)[301], int (*next)[301])
     {
         // 빙산 녹이기
         melting(prev_ice, next_ice);
-        // print(prev_ice, next_ice);
+        print(prev_ice, next_ice);
 
         // SWAP
         temp = prev_ice;
