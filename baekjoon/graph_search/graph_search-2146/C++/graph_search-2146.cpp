@@ -10,9 +10,16 @@ int n;
 // 다른 변수 생성
 int graph[101][101] = {0};
 
+struct Mark
+{
+    int mark, dist;
+    Mark() : mark(0), dist(0) {}
+    Mark(int m, int d) : mark(m), dist(d) {}
+};
 struct Pos
 {
     int y, x, mark, dist;
+    // Mark m_info;
     Pos() : y(0), x(0), mark(0), dist(0) {}
     Pos(int y, int x) : y(y), x(x) {}
     Pos(int y, int x, int m) : y(y), x(x), mark(m) {}
@@ -23,12 +30,7 @@ struct Pos
         return out;
     }
 };
-struct Mark
-{
-    int mark, dist;
-    Mark() : mark(0), dist(0) {}
-    Mark(int m, int d) : mark(m), dist(d) {}
-};
+
 enum MAP
 {
     SEA = 0,
@@ -49,7 +51,7 @@ bool is_valid(int y, int x)
 }
 void bfs_make_bridge()
 {
-
+    int min_dist = 99999;
     while (!land_voyage_q.empty())
     {
         Pos now = land_voyage_q.front();
@@ -65,22 +67,25 @@ void bfs_make_bridge()
             if (!visited_voyage[ny][nx].dist &&
                 graph[ny][nx] != now.mark)
             {
-                // 남의 섬에서 온 다리라면..?
 
                 land_voyage_q.emplace(ny, nx, now.mark, now.dist + 1);
                 visited_voyage[ny][nx] = {now.mark, now.dist + 1};
+                // print();
                 // print(ny, nx, now.mark);
             }
-            // 다른 곳에서 방문했고 graph는 바다임
-            else if (visited_voyage[ny][nx].dist &&
-                     visited_voyage[ny][nx].mark != now.mark &&
-                     graph[ny][nx] == SEA)
+            // 다음 땅이 다른 곳에서 방문한 곳이라면
+            //  => 남의 섬에서 온 다리라면..
+            if (visited_voyage[ny][nx].dist > 0 &&
+                visited_voyage[ny][nx].mark != now.mark)
             {
-                cout << now.dist + visited_voyage[ny][nx].dist << endl;
-                return;
+
+                min_dist = min(min_dist, now.dist + visited_voyage[ny][nx].dist);
+
+                // return;
             }
         }
     }
+    cout << min_dist << endl;
 }
 bool bfs_mark_land(int y, int x, int marking, bool (*visited_land)[101])
 {
@@ -160,9 +165,9 @@ int main()
     // 제출 시 주석처리
 
     input();
-    print();
+    // print();
     sol();
-    print();
+    // print();
 
     return 0;
 }
@@ -174,6 +179,11 @@ void print()
         for (int j = 0; j < n; j++)
         {
             cout << graph[i][j] << " ";
+        }
+        cout << "\t";
+        for (int j = 0; j < n; j++)
+        {
+            cout << visited_voyage[i][j].mark << " ";
         }
         cout << "\t";
         for (int j = 0; j < n; j++)
