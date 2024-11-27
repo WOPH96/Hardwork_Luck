@@ -24,34 +24,62 @@ enum MAP
 
 struct Node
 {
-    int y, x, act;
-    Node(int y, int x, int a) : y(y), x(x), act(a) {}
+    int y, x, act, horse;
+    Node(int y, int x, int a) : y(y), x(x), act(a), horse(k) {}
+Node(int y, int x, int a,int h) : y(y), x(x), act(a), horse(h) {}
 };
 
 // 입력, 테스트 출력
 
 void print();
-
+bool is_valid(int y, int x){
+    return (y >= 0 && y < h && x >= 0 && x < w);
+}
 void sol()
 {
     queue<Node> q;
-    q.emplace(0, 0, 0);
+    q.emplace(0, 0, 0,k);
     visited[0][0][k] = true;
     while (!q.empty())
     {
         Node now = q.front();
         q.pop();
+        if(now.y == h - 1 && now.x == w - 1){
+            cout << now.act << endl;
+            return;
+        }
         for (int i = 0; i < 4; i++)
         {
+            int ny = now.y + monkey_dy[i];
+            int nx = now.x + monkey_dx[i];
+
+            if(!is_valid(ny, nx)) continue;
+
+            if(graph[ny][nx] == ROAD && 
+                !visited[ny][nx][now.horse]){
+                q.emplace(ny, nx, now.act+1,now.horse);
+                visited[ny][nx][now.horse] = true;
+            }
+            
         }
 
-        if (k > 0)
+        if (now.horse > 0)
         {
             for (int i = 0; i < 8; i++)
             {
+                int ny = now.y + horse_dy[i];
+                int nx = now.x + horse_dx[i];
+                if(!is_valid(ny, nx)) continue;
+                if(graph[ny][nx] == ROAD &&
+                    !visited[ny][nx][now.horse-1]){
+                    q.emplace(ny, nx, now.act+1,now.horse-1);
+                    visited[ny][nx][now.horse-1] = true;
+                    
+                }
             }
         }
     }
+    cout << -1 << endl;
 }
 
 void input()
@@ -79,7 +107,7 @@ int main()
 
     input();
     sol();
-    print();
+    // print();
 
     return 0;
 }
