@@ -16,7 +16,7 @@
 top_dir=$(git rev-parse --show-toplevel)
 script_dir=${top_dir}/ctrl_shell_script
 
-target_dirs=(baekjoon programmers mincoding/problem softeer)
+target_dirs=(baekjoon programmers mincoding/problem softeer bloodstrawberry)
 # target_dirs=(${TARGET_DIRS//,/ })
 # echo ${#target_dirs[@]}
 for dir in ${target_dirs[@]}; do
