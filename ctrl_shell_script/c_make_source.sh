@@ -22,6 +22,7 @@ source_path="${prob_number}/${directory_of_source}"
 
 mkdir -p ${source_path}
 touch ${source_path}/${prob_number}.c
+touch ${source_path}/${prob_number}_idea.txt
 touch ${source_path}/${prob_number}_input.txt
 echo "#include <stdio.h>
 
@@ -66,4 +67,5 @@ int main()
 
 #open
 code ${source_path}/${prob_number}.c
+code ${source_path}/${prob_number}_idea.txt
 code ${source_path}/${prob_number}_input.txt
