@@ -1,0 +1,44 @@
+
+start pointer 
+end pointer 
+index를 추가하여 계산
+
+push = ip 위치에 삽입하고 ip ++
+pop = 
+
+ip
+op
+[][][][][][]
+
+
+push 1
+
+op ip
+[1][][][][][]
+
+
+push 2
+op    ip
+[1][2][][][][]
+
+
+pop
+  op ip 
+[][2][][][]
+
+pop
+    op
+    ip
+[][][][][]
+
+front -> 큐의 가장 앞, 즉 나갈 놈 = op
+print op
+
+back -> 큐의 가장 뒤, 즉 방금 들어온놈 =ip
+print ip -1
+
+empty
+print op==ip
+
+size
+print ip-op
