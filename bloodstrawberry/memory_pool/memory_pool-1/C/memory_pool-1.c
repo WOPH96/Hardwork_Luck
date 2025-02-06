@@ -28,7 +28,7 @@ void init()
 {
     pcnt = 0;
     for (int i = 1; i <= V; i++)
-        HEAD[i].next = 0;
+        HEAD[i].next = 0
 }
 void input_f()
 {

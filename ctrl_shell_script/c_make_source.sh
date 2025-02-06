@@ -29,6 +29,13 @@ echo "#include <stdio.h>
 // 필요 변수 선언
 
 // 필요 변수 선언
+
+void print_debug();
+
+void sol()
+{
+}
+
 void input_f()
 {
     FILE *fp = fopen(\"${prob_number}_input.txt\", \"r\");
@@ -59,8 +66,14 @@ int main()
 {
     input_f();
     // input();
+    print_debug();
+    sol();
 
     return 0;
+}
+
+void print_debug()
+{
 }
 " >> ${source_path}/${prob_number}.c
 # 실수방지를 위한 이어쓰기
