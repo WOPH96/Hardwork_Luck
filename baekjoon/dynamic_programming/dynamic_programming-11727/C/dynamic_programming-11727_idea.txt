@@ -1,0 +1,9 @@
+천천히 타일 갯수 구해보면
+
+2x1 case = | (1가지)
+2x2 case = ||, ==, ㅁ (3가지)
+2x3 case = 2x2 case + | (3가지) + (2x1)case + ==, ㅁ (2x1 =2가지) = 5가지
+
+2xn case = n-1 case + 2* (n-2)case
+
+dp [n] = dp[n-1] + 2*dp[n-2]
