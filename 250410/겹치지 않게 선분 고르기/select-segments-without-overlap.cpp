@@ -11,10 +11,10 @@ struct Line
 {
     int x1,x2;
     int length;
-    bool operator <(Line &L)
+    bool operator <(const Line &L)
     {
         if(this->length == L.length )
-            return this->x1 < L.x1;
+            return this->x2 < L.x2;
         return this->length < L.length;
     }
 };
