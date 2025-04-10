@@ -13,9 +13,9 @@ struct Line
     int length;
     bool operator <(const Line &L)
     {
-        if(this->length == L.length )
+        // if(this->length == L.length )
             return this->x2 < L.x2;
-        return this->length < L.length;
+        // return this->length < L.length;
     }
 };
 
