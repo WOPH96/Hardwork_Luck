@@ -21,9 +21,8 @@ int main() {
     {
         for(int j=0;j<n;j++)
         {
-            if(i== n-1 && j==n-1) break;
-            mem[i+1][j] = max(mem[i+1][j],mem[i][j]+grid[i+1][j]);
-            mem[i][j+1] = max(mem[i][j+1],mem[i][j]+grid[i][j+1]);
+            if(i>0) mem[i][j] = max(mem[i][j], mem[i-1][j] + grid[i][j]);
+            if(j>0) mem[i][j] = max(mem[i][j], mem[i][j-1] +grid[i][j]);
         }
     }
 
