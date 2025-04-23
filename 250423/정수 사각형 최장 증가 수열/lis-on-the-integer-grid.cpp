@@ -1,9 +1,11 @@
 #include <cstdio>
-
+#include <queue>
 int n;
 int grid[501][501];
 
 #define max(a,b) (a>b ? a : b)
+
+using namespace std;
 
 typedef struct
 {
@@ -23,17 +25,22 @@ void bfs(Pos start)
     if(visited[start.y][start.x]) return;
     // start.visit_cnt = 1;
     visited[start.y][start.x] = 1;
-    Pos queue[500*500];
-    int op =0, ip =0;
-    queue[ip++] = start;
+    queue<Pos> q;
+    // Pos queue[500*500];
+    // int op =0, ip =0;
+    // queue[ip++] = start;
+    q.push(start);
     int dy[] = {0,0,1,-1};
     int dx[] = {1,-1,0,0};
     
     // int cnt = 1;
     // printf("In BFS start from %d\n",grid[start.y][start.x]);
-    while(ip>op)
+    // while(ip>op)
+    while(!q.empty())
     {
-        Pos now = queue[op++];
+        // Pos now = queue[op++];
+        Pos now = q.front();
+        q.pop();
         for(int i = 0; i<4;i++)
         {
             int ny = now.y+dy[i], nx = now.x+dx[i];
@@ -42,7 +49,8 @@ void bfs(Pos start)
             {
                 // printf("[%d,%d] = [%d]\n",ny,nx,grid[ny][nx]);
                 visited[ny][nx] = now.visit_cnt+1;
-                queue[ip++] = {ny,nx,now.visit_cnt+1};
+                // queue[ip++] = {ny,nx,now.visit_cnt+1};
+                q.push({ny,nx,now.visit_cnt+1});
                 // cnt++;
             }
         }
