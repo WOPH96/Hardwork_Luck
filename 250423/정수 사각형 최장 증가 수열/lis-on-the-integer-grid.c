@@ -17,7 +17,7 @@ void bfs(Pos start)
     if(visited[start.y][start.x]) return;
     start.visit_cnt = 1;
     visited[start.y][start.x] = 1;
-    Pos queue[500*500];
+    Pos queue[5000*500];
     int op =0, ip =0;
     queue[ip++] = start;
     int dy[] = {0,0,1,-1};
