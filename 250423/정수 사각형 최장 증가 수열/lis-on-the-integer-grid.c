@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int n;
-int grid[500][500];
+int grid[501][501];
 
 #define max(a,b) (a>b ? a : b)
 
@@ -12,15 +12,16 @@ typedef struct
 
 int is_valid(int y,int x)
 {
-    return (0<=y&&y<n && 0<=x && x<n);
+    return (0<=y && y<n &&
+             0<=x && x<n);
 }
 
-int visited[500][500];
+int visited[501][501];
 
 void bfs(Pos start)
 {
     if(visited[start.y][start.x]) return;
-    start.visit_cnt = 1;
+    // start.visit_cnt = 1;
     visited[start.y][start.x] = 1;
     Pos queue[500*500];
     int op =0, ip =0;
@@ -80,7 +81,7 @@ int main() {
         for (int j =0; j<n; j++)
         {
             // printf("[%d,%d] = %d\n",i,j,grid[i][j]);
-            bfs((Pos){i,j,0});
+            bfs((Pos){i,j,1});
             // print_visit();
             
             // max_res = max(max_res,res);
