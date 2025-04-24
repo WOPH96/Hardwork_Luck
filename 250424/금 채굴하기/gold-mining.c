@@ -17,7 +17,7 @@ typedef struct
     int y,x;
 }Pos;
 
-int max_gold_count = -1;
+int max_gold_count = 0;
 
 void cmp(int k, int gold_count)
 {
@@ -90,13 +90,13 @@ int main() {
         }
     }
     
-    cmp(0,1);
+    // cmp(0,1);
     // Please write your code here.
     for(int i = 0; i <n; i++)
     {
         for(int j = 0; j < n ; j++)
         {
-            for(int k = 1;k<=n;k++)
+            for(int k = 0;k<=n;k++)
                 bfs((Pos){i,j},k);    
         }
     }
