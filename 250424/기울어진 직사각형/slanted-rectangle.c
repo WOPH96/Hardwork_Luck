@@ -15,9 +15,9 @@ typedef struct
 
 int max_sum = -1;
 
-void dfs(int dir,int sum, Pos now, Pos start, int visited[][21])
+void dfs(int dir,int sum, int cnt, Pos now, Pos start, int visited[][21])
 {
-    if(dir==3 && start.y == now.y && start.x == now.x)
+    if(dir==3 && start.y == now.y && start.x == now.x && cnt >=4)
     {
         max_sum = max(max_sum,sum);
         return;
@@ -26,6 +26,7 @@ void dfs(int dir,int sum, Pos now, Pos start, int visited[][21])
  
     sum += grid[now.y][now.x];
     visited[now.y][now.x] = 1;
+    cnt++;
     // if(start.y == 4 &&start.x == 4)
     // {
     //     printf("now[%d,%d] sum = %d, dir = %d\n",now.y,now.x,sum,dir);
@@ -35,7 +36,7 @@ void dfs(int dir,int sum, Pos now, Pos start, int visited[][21])
     {
         int ny = now.y + dy[d], nx = now.x +dx[d];
         if(is_valid(ny,nx) )//&& visited[ny][nx]==0)
-            dfs(d,sum,(Pos){ny,nx},start,visited);
+            dfs(d,sum,cnt,(Pos){ny,nx},start,visited);
         // else break;
     }
     // return sum;
@@ -61,7 +62,7 @@ int main() {
         {
             int visited[][21] = {0};
             init_visited(visited);
-            dfs(0,0,(Pos){i,j},(Pos){i,j},visited);
+            dfs(0,0,0,(Pos){i,j},(Pos){i,j},visited);
             // printf("[%d,%d] max_sum = %d\n",i,j,max_sum);
         }
     }
