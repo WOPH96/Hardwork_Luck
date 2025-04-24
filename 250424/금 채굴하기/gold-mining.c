@@ -23,7 +23,7 @@ void cmp(int k, int gold_count)
 {
     int cost = k*k + (k+1)*(k+1);
     int earn = gold_count * m;
-    if(earn>cost)
+    if(earn>=cost)
         max_gold_count = max(max_gold_count,gold_count); 
 }
 
