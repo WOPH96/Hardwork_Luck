@@ -19,7 +19,7 @@ int main() {
     {
         int u_temp = u[n-1];
         int d_temp = d[n-1];
-        for(int i = n ;i >0; i--)
+        for(int i = n-1 ;i >0; i--)
         {
             u[i] = u[i-1];
             d[i] = d[i-1];
