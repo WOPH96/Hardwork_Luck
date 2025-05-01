@@ -11,12 +11,12 @@ int dx[] = {0,0,-1,1};
 
 int main() {
     scanf("%d %d %d", &n, &y, &x);
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             scanf("%d", &grid[i][j]);
         }
     }
-
+    y--,x--;
     // Please write your code here.
     
     int find;
