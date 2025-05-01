@@ -25,19 +25,25 @@ int main() {
     k--;
     
     // Please write your code here.
-    
-    for(int i =n-1;i>=0;i--)
-    {//아래서부터 
+    int lowest_row = 0;
+    for(int i =0;i<n;i++)
+    {//아래서부터 XXXX 위에서부터 내려야함.
+        // 못할떄까지 내려 
         if(check(i,k))
         { // 전부 0인공간 찾기 
-            for(int j =k;j<k+m;j++)
-            {
-                grid[i][j] = 1;
-            }
-            break;
+            lowest_row = i;
+            // for(int j =k;j<k+m;j++)
+            // {
+            //     grid[i][j] = 1;
+            // }
+            // break;
         }
+        else break;
     }
-
+    for(int j =k;j<k+m;j++)
+    {
+        grid[lowest_row][j] = 1;
+    }
     for(int i = 0; i<n;i++)
     {
         for(int j=0;j<n;j++)
