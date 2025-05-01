@@ -18,9 +18,10 @@ int max_size = -1;
 void check(const Ractangle r)
 {
     int size = 0;
+    // printf("start[%d,%d] end[%d,%d]",r.st.y,r.st.x,)
     for(int i =r.st.y; i<=r.end.y; i++)
     {
-        for(int j=r.st.x; j<=r.end.y;j++)
+        for(int j=r.st.x; j<=r.end.x;j++)
         {
             if(grid[i][j]<=0)
                 return;
@@ -45,7 +46,7 @@ int main(void) {
         {
             for(int e_y = s_y; e_y<n;e_y++)
             {
-                for(int e_x = s_x; e_x<m;e_x++)
+                for(int e_x = s_x; e_x<m; e_x++)
                 {
                     Ractangle r = {{s_y,s_x},{e_y,e_x}};
                     check(r);
