@@ -43,6 +43,19 @@ int get_dir(int idx)
     return dir;
 }
 
+void show_dice()
+{
+    for(int i = 0; i<5; i++)
+    {
+        for( int j =0; j<4; j++)
+        {
+            printf("%d ",dice[i][j]);
+        }
+        printf("\n");
+        
+    }
+    printf("\n");
+}
 void tumble_dice(Direct dir)
 {
     if(dir == LEFT)
@@ -53,6 +66,8 @@ void tumble_dice(Direct dir)
             dice[2][j] = dice[2][j-1];
         }
         dice[2][0] = temp;
+        dice[0][1] = dice[2][3];
+        dice[4][1] = dice[2][3];
     }
 
     else if (dir == RIGHT)
@@ -63,6 +78,8 @@ void tumble_dice(Direct dir)
             dice[2][j] = dice[2][j+1];
         }
         dice[2][3] = temp;
+        dice[0][1] = dice[2][3];
+        dice[4][1] = dice[2][3];
     }
 
     else if (dir== UP)
@@ -102,6 +119,10 @@ int main() {
         if(!is_valid(ny,nx)) continue;
         
         tumble_dice(dir);
+
+        // printf("%c\n",directions[i]);
+        // show_dice();
+        
         r = ny, c = nx;
         grid[r][c] = STAMP;
 
