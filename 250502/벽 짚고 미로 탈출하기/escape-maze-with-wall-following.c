@@ -42,7 +42,7 @@ int main() {
     int ny = -1, nx =-1;
 
     int curr_dir = 0;
-    
+    int wall_cnt = 0;
     // int debug_count = 0;
     while(1)
     {
@@ -62,7 +62,7 @@ int main() {
         } 
         if(maze[ny][nx] == EMPTY)
         { // 진행방향이 비어있다면 그대로 이동 
-            if(visited[ny][nx]>2)
+            if(visited[ny][nx]>4)
             {
                 printf("-1");
                 return 0;
@@ -70,12 +70,18 @@ int main() {
             curr_y = ny, curr_x = nx;
             visited[ny][nx]++;
             sec++;
+            wall_cnt = 0;
         }
         else if(maze[ny][nx] == WALL)
         {// 진행방향이 벽이라면 왼쪽으로 회전만 하기
             // printf("ger",curr_y,curr_x,ny,nx);
             curr_dir = (curr_dir+1)%4;
-
+            if(wall_cnt >4)
+            {
+                printf("-1");
+                return 0;
+            }
+            wall_cnt++;
         }
         // if(debug_count >10) break;
     }
