@@ -62,7 +62,7 @@ int main() {
         } 
         if(maze[ny][nx] == EMPTY)
         { // 진행방향이 비어있다면 그대로 이동 
-            if(visited[ny][nx]>4)
+            if(visited[ny][nx]>2)
             {
                 printf("-1");
                 return 0;
