@@ -24,7 +24,7 @@ void check_right_wall(int *y, int *x,int *curr_dir)
         *curr_dir = right_dir;
         *x = nx;
         *y = ny;
-        visited[ny][nx] = 1;
+        visited[ny][nx]++;
         sec++;
     }
 }
@@ -62,13 +62,13 @@ int main() {
         } 
         if(maze[ny][nx] == EMPTY)
         { // 진행방향이 비어있다면 그대로 이동 
-            if(visited[ny][nx])
+            if(visited[ny][nx]>4)
             {
                 printf("-1");
                 return 0;
             }
             curr_y = ny, curr_x = nx;
-            visited[ny][nx] = 1;
+            visited[ny][nx]++;
             sec++;
         }
         else if(maze[ny][nx] == WALL)
