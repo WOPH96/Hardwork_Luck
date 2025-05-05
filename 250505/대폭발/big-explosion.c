@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <math.h>
 int n, m, r, c;
 
 int grid[100][100];
@@ -16,7 +16,19 @@ typedef struct
 }Pos;
 
 #define is_valid(y,x) (0<=y && y<n && 0<=x && x<n)
-
+void print()
+{
+    for(int i = 0; i<n; i++)
+    {
+        for(int j= 0; j<n; j++)
+        {
+            
+            printf("%d ",grid[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
 void bfs(Pos start)
 {
     Pos q[100*100];
@@ -37,7 +49,8 @@ void bfs(Pos start)
 
             for(int i =0; i<4; i++)
             {
-                int ny = now.y + dy[i]*time, nx = now.x +dx[i]*time;
+                int ny = now.y + dy[i]*pow(2,time-1);
+                int nx = now.x + dx[i]*pow(2,time-1);
                 
                 if(is_valid(ny,nx) && grid[ny][nx] != BOMB)
                 {
@@ -51,8 +64,11 @@ void bfs(Pos start)
             size++;
             // printf("size = %d\n",size);
         }
+        // print();
     }
 }
+
+
 
 int main() {
     scanf("%d %d %d %d", &n, &m, &r, &c);
