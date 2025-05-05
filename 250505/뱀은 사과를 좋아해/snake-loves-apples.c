@@ -70,11 +70,20 @@ int move_snake(char dir, int p)
             
         sec++;
         if(!is_valid(ny,nx)) return 1;
-        if(grid[ny][nx] == BODY) return 1;
+        int body_flag = 0;
+        if(grid[ny][nx] == BODY) 
+        {
+            if(ny == snake.tail.y && nx == snake.tail.x)
+            {
+                grid[snake.tail.y][snake.tail.x] = EMPTY;
+                body_flag = 1;
+            }
+            else
+                return 1;
+        }
 
         if (grid[ny][nx] == APPLE)
         {
-            
             if(!snake.has_tail) // 꼬리는 사과 먹었을때만 생김
                 snake.tail = path_q[op++]; // 꼬리 업데이트는 빈칸에서만 
             snake.has_tail++;
@@ -88,7 +97,8 @@ int move_snake(char dir, int p)
         {
             if(snake.has_tail) // 꼬리 있을때만 tail업데이트 
             {
-                grid[snake.tail.y][snake.tail.x] = EMPTY;
+                if(!body_flag)
+                    grid[snake.tail.y][snake.tail.x] = EMPTY;
                 grid[snake.head.y][snake.head.x] = BODY;
                 snake.tail = path_q[op++];
             }
