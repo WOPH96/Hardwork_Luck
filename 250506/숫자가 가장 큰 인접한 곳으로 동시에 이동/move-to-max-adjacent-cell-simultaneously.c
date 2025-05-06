@@ -10,6 +10,7 @@ int start[401][2];
 typedef struct
 {
     int y,x;
+    int alive;
 }Pos;
 
 Pos bead[401];
@@ -47,7 +48,14 @@ void copy_arr(int target[][21],int src[][21])
         for(int j=0; j<n; j++)
         {
             if(src[i][j] >=2)
+            {
                 target[i][j] = 0;
+                for(int b = 0; b<m; b++)
+                {
+                    if(bead[b].y == i && bead[b].x == j)
+                        bead[b].alive = 0;
+                }
+            }
             else
                 target[i][j] = src[i][j];
         }
@@ -63,10 +71,13 @@ void move()
 
     for(int time = 0; time<t; time++)
     {
+        // printf("%d time\n",time+1);
+        // print();
         int temp_visited[21][21] = {0};
         copy_arr(temp_visited,visited);
         for(int i = 0; i<m; i++)
         {
+            if(!bead[i].alive) continue;
             Pos now = bead[i];
             int max_val = -1;
             Pos index = {-1,-1};
@@ -111,6 +122,7 @@ int main() {
     {
         scanf("%d %d", &bead[i].y, &bead[i].x);
         bead[i].y--,bead[i].x--;
+        bead[i].alive = 1;
         visited[bead[i].y][bead[i].x] = 1;
     }
     // Please write your code here.
