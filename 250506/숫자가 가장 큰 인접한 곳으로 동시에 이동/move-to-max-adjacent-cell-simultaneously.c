@@ -68,17 +68,32 @@ void move()
         for(int i = 0; i<m; i++)
         {
             Pos now = bead[i];
+            int max_val = -1;
+            Pos index = {-1,-1};
             for(int dir = 0; dir<4; dir++)
             {
                 int ny = now.y + dy[dir], nx = now.x + dx[dir];
-                if(is_valid(ny,nx) && grid[ny][nx] > grid[now.y][now.x])
+                
+                if(is_valid(ny,nx))
                 {
-                    temp_visited[ny][nx]++;
-                    temp_visited[now.y][now.x]--;
-                    bead[i].y =ny, bead[i].x = nx;
-                    break;
+                    if(max_val < grid[ny][nx]) 
+                    {
+                        // printf("now[%d,%d],next[%d,%d]\n",now.y,now.x,ny,nx);
+                        max_val = grid[ny][nx]; // 우선순위에 의해 같은값은 저장안됨
+                        index = (Pos){ny,nx};
+                    }
+
+
                 }
+
             }
+            
+            temp_visited[index.y][index.x]++;
+            temp_visited[now.y][now.x]--;
+            bead[i].y =index.y, bead[i].x = index.x;
+
+            // print();
+            // print_2(temp_visited);
         }
         // print(),print_2(temp_visited);
         copy_arr(visited,temp_visited);
@@ -88,8 +103,8 @@ void move()
 int main() {
     scanf("%d %d %d", &n, &m, &t);
     
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= n; j++)
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j <n; j++)
             scanf("%d", &grid[i][j]);
     
     for (int i = 0; i < m; i++)
