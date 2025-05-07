@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_M 2500
+#define MAX_M 2501
 
 
 int n, m,t,k;
