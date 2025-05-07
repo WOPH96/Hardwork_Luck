@@ -11,6 +11,7 @@ typedef struct
 {
     int size;
     int stack[STACK_SIZE];
+    // int max_val; // max_heap 썼으면 쉬웠을텐데 
 }Stack;
 
 typedef struct
@@ -28,6 +29,7 @@ void init_stack()
         for(int j=0;j<n;j++)
         {
             grid[i][j].size = 0;
+            // grid[i][j].max_val = -1;
         }
     }
 }
@@ -45,10 +47,18 @@ int pop(Stack *s)
     return s->stack[--s->size];
 }
 
-int bottom(Stack *s)
+int max_in_stack(Stack *s)
 {
     if(s->size > 0)
-        return s->stack[0];
+    {
+        int max_val = -1;
+        for(int i =0; i < s->size; i++)
+        {
+            if(max_val < s->stack[i])
+                max_val = s->stack[i];
+        }
+        return max_val;
+    }
     else
         return -1;
 }
@@ -87,9 +97,9 @@ void do_move(int num)
     for(int i =0; i<8; i++)
     {
         int ny = now.y+dy[i], nx = now.x+dx[i];
-        if(is_valid(ny,nx) && bottom(&grid[ny][nx]) > max_val)
+        if(is_valid(ny,nx) && max_in_stack(&grid[ny][nx]) > max_val)
         {
-            max_val = bottom(&grid[ny][nx]);
+            max_val = max_in_stack(&grid[ny][nx]);
             max_pos = (Pos){ny,nx};
         }
     }
