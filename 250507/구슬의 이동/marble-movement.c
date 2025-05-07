@@ -130,7 +130,7 @@ void check_and_remove()
             {
                 // marble[i].alive = 0;
                 qsort(&destory[y][x].arr,destory[y][x].size,sizeof(Marble),cmp);
-                for(int j = k; j<m; j++)
+                for(int j = k; j < destory[y][x].size; j++)
                 {
                     int reomve_idx = destory[y][x].arr[j].id;
                     marble[reomve_idx].alive = 0;
@@ -149,6 +149,7 @@ void check_and_remove()
     //     }
     //     printf("\n");
     // }
+    // printf("\n");
 }
 
 
