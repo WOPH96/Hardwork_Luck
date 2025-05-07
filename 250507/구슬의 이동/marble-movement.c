@@ -61,7 +61,7 @@ void move(Marble *marble)
 typedef struct
 {
     int size;
-    Marble arr[50];
+    Marble arr[MAX_M];
 }Vector;
 
 void init_vector(Vector arr[][50])
