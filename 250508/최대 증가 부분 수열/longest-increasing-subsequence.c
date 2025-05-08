@@ -23,18 +23,29 @@ int main() {
     memset(mem,-1,n*sizeof(int));
     // print(mem);
     mem[0] = 1;
-    for(int i=0;i<n;i++)
+    // for(int i=0;i<n;i++)
+    // {
+    //     for(int j=i+1;j<n;j++)
+    //     {
+    //         if(mem[i] == -1)
+    //             mem[i] = 1;
+    //         if(num[j]>num[i])
+    //         {
+    //             mem[j] = max(mem[j],mem[i]+1);
+    //         }
+    //         // printf("[%d %d]\n",i,j);
+    //         // print(mem);
+    //     }
+    // }
+    for(int i = 0; i<n; i++)
     {
-        for(int j=i+1;j<n;j++)
+        for(int j = 0; j<i; j++)
         {
+            //
             if(mem[i] == -1)
                 mem[i] = 1;
-            if(num[j]>num[i])
-            {
-                mem[j] = max(mem[j],mem[i]+1);
-            }
-            // printf("[%d %d]\n",i,j);
-            // print(mem);
+            if(num[j] < num[i])
+                mem[i] = max(mem[i],mem[j]+1);
         }
     }
     int longest = -1;
