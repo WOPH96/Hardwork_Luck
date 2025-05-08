@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #define max(a,b) ((a>b) ? a : b)
 int n;
 int num[1001];
@@ -19,6 +20,8 @@ int main() {
     // Please write your code here.
 
     int mem[1001] = {-1};
+    memset(mem,-1,n*sizeof(int));
+    // print(mem);
     mem[0] = 1;
     for(int i=0;i<n;i++)
     {
