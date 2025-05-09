@@ -17,7 +17,7 @@ int dfs(Pos now)
     if(mem[now.y][now.x] == 0) return 0;
     if(mem[now.y][now.x] != -1) 
     {
-        mem[now.y][now.x];
+        return mem[now.y][now.x];
     }
 
     int max_jump = 0;
