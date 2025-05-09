@@ -1,6 +1,6 @@
 #include <stdio.h>
 #define max(a,b) ((a>b)?a:b)
-#define min(a,b) ((a<b)?a:b)
+
 int arr[1000];
 int n;
 void print(const int *mem)
@@ -17,20 +17,24 @@ int main(void) {
     for(int i = 0; i < n; i++) {
         scanf("%d", &arr[i]);
     }
-    // Please write your code here.
 
-    int mem[1000]= {0};
-    
-    int max_iter = arr[0]+1;
-    for(int i = 0; i<max_iter; i++)
+    // mem[i]: i번 칸까지 점프해서 도달한 최대 점프 횟수, 도달못하면 -1
+    int mem[1000];
+    for(int i=0;i<n;i++) mem[i]=-1;
+    mem[0]=0;
+
+    for(int i=0; i<n; i++) 
     {
-        max_iter = min( ( max( max_iter, arr[i]+1 ) ) , n);
-        for(int j = i+1; j<=i+arr[i];j++)
+        if(mem[i]==-1) continue; // 밟을 수 없는 칸은 스킵
+        for(int j=1; j<=arr[i]; j++) 
         {
-            mem[j] = max(mem[j],mem[i]+1);
+            if(i+j < n) {
+                mem[i+j] = max(mem[i+j], mem[i]+1);
+            }
         }
     }
-    
+    // print(mem);
+
     int max_jump = -1;
     for(int i = 0; i < n; i++) {
         max_jump = max(max_jump, mem[i]);
