@@ -23,7 +23,7 @@ int dfs(Pos now)
     int max_jump = 0;
     for(int ny = now.y+1; ny<n; ny++)
     {
-        for(int nx = now.x+1; nx<n; nx++)
+        for(int nx = now.x+1; nx<m; nx++)
         {
             // if(ny == now.y && nx == now.x) continue;
             int res =0;
