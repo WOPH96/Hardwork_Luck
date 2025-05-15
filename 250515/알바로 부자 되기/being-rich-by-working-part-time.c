@@ -25,7 +25,7 @@ int main() {
         for(int j=0; j<i; j++)
         {
             if (jobs[j].e < jobs[i].s)
-                dp[i] = max(dp[i-1],dp[j]+dp[i]);
+                dp[i] = max(dp[i-1],dp[j]+jobs[i].p);
         }
         if(i > 0) dp[i] = max(dp[i], dp[i-1]); // i-1까지의 최대값 그대로 유지 가능
     }
