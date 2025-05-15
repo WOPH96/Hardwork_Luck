@@ -27,13 +27,15 @@ int main() {
             if (jobs[j].e < jobs[i].s)
                 dp[i] = max(dp[i-1],dp[j]+jobs[i].p);
         }
-        if(i > 0) dp[i] = max(dp[i], dp[i-1]); // i-1까지의 최대값 그대로 유지 가능
+        // if(i > 0) dp[i] = max(dp[i], dp[i-1]); // i-1까지의 최대값 그대로 유지 가능
     }
 
-    // for(int i =0 ; i<n; i++)
-    // {
-        printf("%d ",dp[n-1]);
-    // }
+    int max_val = -1;
+    for(int i =0 ; i<n; i++)
+    {
+        max_val = max(max_val,dp[i]);
+    }
 
+    printf("%d",max_val);
     return 0;
 }
