@@ -16,6 +16,7 @@ void backtrack(int sum, int idx, int cnt)
     }
 
     if(idx>=n) return;
+    if(sum > m || cnt > min_length) return;
 
     //현재 요소 선택했을때
     backtrack(sum+arr[idx],idx+1,cnt+1);
