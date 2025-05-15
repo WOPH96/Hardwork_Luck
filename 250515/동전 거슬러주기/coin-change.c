@@ -36,7 +36,8 @@ int main() {
             }
         }
     }
-    printf("%d",dp[m]);
+    if(dp[m] == MAX_VAL) printf("-1");
+    else printf("%d",dp[m]);
     // for(int i =0; i<=m; i++)
     // {
     //     printf("%d ",dp[i]);
