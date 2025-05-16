@@ -16,6 +16,6 @@ int main() {
     // {
     //     printf("%d ",dp[i]);
     // }
-    printf("%d",dp[i]);
+    printf("%d",dp[n]);
     return 0;
 }
