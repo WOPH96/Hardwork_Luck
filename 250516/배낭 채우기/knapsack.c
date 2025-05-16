@@ -42,8 +42,8 @@ void backtrack(int idx, int sum_weight, int sum_value)
     // if(max_arr[sum_weight][idx] && max_arr[sum_weight][idx] < sum_value) return;
     //     max_arr[sum_weight][idx] = sum_value;
 
-    // if(max_arr[idx] && max_arr[idx] < sum_value) return;
-    // max_arr[idx] = sum_value;
+    if(max_arr[idx] && max_arr[idx] < sum_value) return;
+    max_arr[idx] = sum_value;
 
     //선택 할 떄
     backtrack(idx+1, sum_weight+jews[idx].w, sum_value+jews[idx].v);
