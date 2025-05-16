@@ -27,6 +27,7 @@ int main() {
     {
         for(int j = 0; j< n; j++)
         {
+            if(dp[ i-coin[j] ] == -1) continue;
             if(i >= coin[j])
                 dp[i] = max(dp[i],dp[i-coin[j]]+1); 
         }
