@@ -12,7 +12,7 @@ int cmp(const void* a, const void* b)
 {
     Jew* src = (Jew*)a;
     Jew* dst = (Jew*)b;
-    return src->w > dst->w;
+    return src->v < dst->v;
 }
 
 Jew jews[101];
