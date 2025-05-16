@@ -1,71 +1,39 @@
 #include <stdio.h>
-#include <stdlib.h>
-int N, M;
+#define MAX_N 101
+#define MAX_W 10001
 
-typedef struct
-{
+typedef struct {
     int w;
     int v;
-}Jew;
+} Jew;
 
-int cmp(const void* a, const void* b)
-{
-    Jew* src = (Jew*)a;
-    Jew* dst = (Jew*)b;
-    return src->v < dst->v;
-}
-
-Jew jews[101];
-
-void print()
-{
-    for(int i= 0; i<N; i++)
-    {
-        printf("[%d %d]\n", jews[i].w, jews[i].v);
-    }
-    printf("\n");
-}
-
-int max_value = -1;
-
-// int max_arr[10001][101];
-int max_arr[10001]; // max_arr[i] -> i 무게에서 최대 벨류 
+int N, M;
+Jew jews[MAX_N];
+int max_value = 0;
+int max_val_at_weight[MAX_W] = {0}; // 무게 w에서 얻을 수 있는 최대 value
 
 void backtrack(int idx, int sum_weight, int sum_value)
 {
+    if (sum_weight > M) return;
+    if (idx >= N) {
+        if (sum_value > max_value) max_value = sum_value;
+        return;
+    }
+    if (max_val_at_weight[sum_weight] && max_val_at_weight[sum_weight] >= sum_value) return;
+    max_val_at_weight[sum_weight] = sum_value;
 
-    if(sum_weight > M ) return;
-    if(max_value < sum_value) 
-        max_value = sum_value;
-    if(idx >= N) return;
-
-    if(max_arr[sum_weight] && max_arr[sum_weight] < sum_value) return;
-
-    //선택 할 떄
-    max_arr[sum_weight] = sum_value+jews[idx].v;
-    backtrack(idx+1, sum_weight+jews[idx].w, sum_value+jews[idx].v);
-    max_arr[sum_weight] = sum_value;
-
-    //선택 x
+    // 선택
+    backtrack(idx+1, sum_weight + jews[idx].w, sum_value + jews[idx].v);
+    // 미선택
     backtrack(idx+1, sum_weight, sum_value);
 }
 
 int main() {
     scanf("%d %d", &N, &M);
-    for (int i = 0; i < N; i++) {
-        scanf("%d %d", &jews[i].w, &jews[i].v);
-    }
-    
-    // Please write your code here.
+    for(int i=0; i<N; ++i) scanf("%d %d", &jews[i].w, &jews[i].v);
 
-    // print();
+    backtrack(0, 0, 0);
+    printf("%d\n", max_value);
 
-    qsort(jews,N,sizeof(Jew),cmp);
-    backtrack(0,0,0);
-
-    printf("%d",max_value);
-
-
-    // print();
     return 0;
 }
