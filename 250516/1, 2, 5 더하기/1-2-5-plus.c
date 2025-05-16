@@ -12,9 +12,10 @@ int main() {
     for(int i = 6;i<=n; i++)
         dp[i] = ((dp[i-5] + dp[i-2])%MOD + dp[i-1])%MOD;
 
-    for(int i = 1; i<=n; i++)
-    {
-        printf("%d ",dp[i]);
-    }
+    // for(int i = 1; i<=n; i++)
+    // {
+    //     printf("%d ",dp[i]);
+    // }
+    printf("%d",dp[i]);
     return 0;
 }
