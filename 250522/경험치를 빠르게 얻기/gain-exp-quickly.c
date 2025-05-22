@@ -16,7 +16,7 @@ Quest quest[101];
 
 #define T_MAX 100*100
 
-int dp[T_MAX];
+int dp[T_MAX+1];
 int main() {
     scanf("%d %d", &n, &m);
     for (int i = 0; i < n; i++) {
