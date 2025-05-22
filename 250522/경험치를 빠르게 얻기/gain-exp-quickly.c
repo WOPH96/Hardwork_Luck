@@ -24,7 +24,7 @@ int main() {
     }
     
     // Please write your code here.
-    memset(dp,-1,(m+1)*sizeof(int));
+    memset(dp,-1,(T_MAX+1)*sizeof(int));
     dp[0] = 0;
 
 
