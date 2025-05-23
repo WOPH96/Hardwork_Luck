@@ -27,7 +27,7 @@ int main() {
     for(int i =1; i<=n; i++)
     {
         // printf("%d ",dp[i]);
-        if(b[i]<dp[i]) sum+=b[i];
+        if(b[i] != a[i] && b[i]<dp[i]) sum+=b[i];
     }
     printf("%d",sum);
 
