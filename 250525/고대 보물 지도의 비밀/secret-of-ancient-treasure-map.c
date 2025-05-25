@@ -32,25 +32,26 @@ int main() {
         else        dp[i][0] = a[i];
         for(int j =0; j<=k; j++)
         {
-            if(i>=1 && dp[i-1][j] == INF_N) continue;
+            if(i<1) continue;
+            if( dp[i-1][j] == INF_N) continue;
             if(a[i]<0)
                 dp[i][j+1] = max(dp[i-1][j]+a[i],a[i]);
             else
                 dp[i][j] = max(dp[i-1][j]+a[i],a[i]);
-
-            max_val = max(max_val,dp[i][j]);
         }
         
+        // break;
     }
 
-    // for(int i = 0; i<n; i++)
-    // {
-    //     for(int j =0 ;j <=k; j++)
-    //     {
-    //         printf("%d ",dp[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+    for(int i = 0; i<n; i++)
+    {
+        for(int j =0 ;j <=k; j++)
+        {
+            max_val = max(max_val,dp[i][j]);    
+            // printf("%d ",dp[i][j]);
+        }
+        // printf("\n");
+    }
 
     printf("%d",max_val);
     return 0;
