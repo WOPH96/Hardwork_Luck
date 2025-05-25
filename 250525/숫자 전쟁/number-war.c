@@ -20,10 +20,17 @@ int dfs(int i, int j)
     {
         ret = max(ret,dfs(i,j+1)+me[j]);
     }
-    else
+
+    else if(me[j] > enemy[i])
     {
         ret = max(ret,dfs(i+1,j)); // 상대방 카드가 큰 경우
     }
+
+    else
+    {
+        ret = max(ret,dfs(i+1,j+1));
+    }
+    
     ret = max(ret,dfs(i+1,j+1)); // 버리는 경우 
 
     
@@ -48,9 +55,9 @@ int main() {
             dp[i][j] = -1;
     }
 
-    dfs(0,0);
+   
     
-    printf("%d",dp[0][0]);
+    printf("%d", dfs(0,0));
 
 
     return 0;
