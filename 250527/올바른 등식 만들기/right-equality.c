@@ -37,6 +37,6 @@ int main() {
     }
     // Please write your code here.
 
-    printf("%d",dfs(0,0));
+    printf("%lld",dfs(0,0));
     return 0;
 }
