@@ -2,7 +2,7 @@
 
 int n, m;   
 int a[101];
-int dp[101][41];
+long long dp[101][41];
 
 #define max(a,b)((a>b)?a:b)
 
@@ -59,6 +59,6 @@ int main() {
 
         }
     }
-    printf("%d",dp[n][m+20]);
+    printf("%lld",dp[n][m+20]);
     return 0;
 }
