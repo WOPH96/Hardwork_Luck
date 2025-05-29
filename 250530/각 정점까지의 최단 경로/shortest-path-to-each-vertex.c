@@ -49,7 +49,10 @@ void print_dist()
 {
     // printf("dist : ");
     for(int i =1; i<=n; i++)
-        printf("%d\n",dist[i]);
+    {
+        if(dist[i] == INF) printf("-1\n");
+        else    printf("%d\n",dist[i]);
+    }
     // printf("\n");
 }
 
