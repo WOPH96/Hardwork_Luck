@@ -121,6 +121,8 @@ int main() {
         //가장 거리가 작은 노드 꺼내기 
         Node now = pop(&min_pq);
 
+        if(dist[now.idx] < now.dist) continue;
+
         //그 노드에서 인접한 노드들 돌기
         for(int j = 1 ; j<=n; j++)
         {
