@@ -144,7 +144,8 @@ int main() {
 
     for(int j =2; j<=n; j++)
     {
-        printf("%d\n",dist[j]);
+        if(dist[j] != 0x7fff0000)        printf("%d\n",dist[j]);
+        else        printf("-1\n");
     }
 
     
