@@ -77,7 +77,7 @@ typedef int(*cmpfp)(Node,Node);
 
 typedef struct 
 {
-    Node data[MAX_N];
+    Node data[MAX_N*15];
     int size;
     cmpfp cmp;
 }Heap;
