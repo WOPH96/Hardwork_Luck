@@ -118,7 +118,7 @@ int main() {
     }
 
     // print_dist_path();
-
+    printf("%d\n",dist[B]);
     vector<int> path_rev;
     path_rev.push_back(B);
     while(B!=A)
@@ -126,7 +126,7 @@ int main() {
         B = path[B];
         path_rev.push_back(B);
     }
-    printf("%d\n",path_rev.size()-1);
+    
     while(!path_rev.empty())
     {
         printf("%d ",path_rev.back());
